@@ -131,10 +131,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (matchesSearch && matchesFilter) {
                 card.style.display = 'block';
+                // Trigger internal highlighting function if active
+                if (typeof highlightMatchingText === 'function') {
+                    highlightMatchingText(card, searchText);
+                }
             } else {
                 card.style.display = 'none';
             }
         });
+
+        // Trigger empty state counter adjustments if active
+        if (typeof updateCounterBadge === 'function') {
+            updateCounterBadge();
+        }
     }
 
     searchBar.addEventListener('input', filterCards);
@@ -177,4 +186,111 @@ document.addEventListener('DOMContentLoaded', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     }
+
+    // ==========================================
+    // 🆕 6. GLOBAL HOTKEY ENGINE (Focus & Escape)
+    // ==========================================
+    document.addEventListener('keydown', (e) => {
+        // Pressing '/' focuses the search bar instantly unless typing in an input
+        if (e.key === '/' && document.activeElement !== searchBar) {
+            e.preventDefault();
+            searchBar.focus();
+            searchBar.select();
+        }
+        // Pressing 'Escape' clears focus and resets the search parameter state
+        if (e.key === 'Escape' && document.activeElement === searchBar) {
+            searchBar.value = '';
+            searchBar.blur();
+            filterCards();
+        }
+    });
+
+    // ==========================================
+    // 🆕 7. AUTOMATIC VISUAL MATCH HIGHLIGHTER
+    // ==========================================
+    function highlightMatchingText(card, term) {
+        const titleEl = card.querySelector('h3');
+        const descEl = card.querySelector('p');
+
+        if (!card.dataset.originalTitle) card.dataset.originalTitle = titleEl.innerHTML;
+        if (!card.dataset.originalDesc) card.dataset.originalDesc = descEl.innerHTML;
+
+        if (!term.trim()) {
+            titleEl.innerHTML = card.dataset.originalTitle;
+            descEl.innerHTML = card.dataset.originalDesc;
+            return;
+        }
+
+        const regex = new RegExp(`(${term.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')})`, 'gi');
+
+        // Wrap matching strings inside your structural style definitions
+        titleEl.innerHTML = card.dataset.originalTitle.replace(regex, `<mark style="background: rgba(254, 240, 138, 0.6); color: #000; border-radius: 2px; padding: 0 2px;">$1</mark>`);
+        descEl.innerHTML = card.dataset.originalDesc.replace(regex, `<mark style="background: rgba(254, 240, 138, 0.6); color: #000; border-radius: 2px; padding: 0 2px;">$1</mark>`);
+    }
+
+    // ==========================================
+    // 🆕 8. METRIC BADGE COUNTER TELEMETRY
+    // ==========================================
+    function updateCounterBadge() {
+        let activeCount = 0;
+        cards.forEach(card => {
+            if (card.style.display !== 'none') activeCount++;
+        });
+
+        let counterBadge = document.getElementById('active-card-counter');
+        if (!counterBadge) {
+            const metricsContainer = document.querySelector('.repo-metrics-bar') || document.querySelector('.action-bar');
+            if (metricsContainer) {
+                const wrapper = document.createElement('div');
+                wrapper.className = 'metric-item active-pill';
+                wrapper.innerHTML = `Showing: <span id="active-card-counter">${activeCount}</span>`;
+                metricsContainer.appendChild(wrapper);
+                counterBadge = document.getElementById('active-card-counter');
+            }
+        }
+
+        if (counterBadge) {
+            counterBadge.textContent = `${activeCount} / ${cards.length}`;
+        }
+    }
+
+    // ==========================================
+    // 🆕 9. DYNAMIC HOVER HOOK FOR FLOATING LOVE SYMBOLS
+    // ==========================================
+    let lastHeartSpawn = 0;
+    const spawnThrottleMs = 150; // Controls rate limit density of heart objects
+
+    cards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            const currentTime = Date.now();
+            if (currentTime - lastHeartSpawn < spawnThrottleMs) return;
+            lastHeartSpawn = currentTime;
+
+            // Compute precision placement coordinate bounds within the card canvas
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            // Create structural visual heart node
+            const heart = document.createElement('span');
+            heart.className = 'floating-heart';
+            heart.innerHTML = '❤️';
+            heart.style.left = `${x}px`;
+            heart.style.top = `${y}px`;
+
+            // Give each particle a slight random variance for a natural feel
+            const randomScale = 0.7 + Math.random() * 0.6;
+            heart.style.transform = `translate(-50%, -50%) scale(${randomScale})`;
+
+            card.appendChild(heart);
+
+            // Clean up DOM tree footprint after the animation finishes running
+            setTimeout(() => {
+                heart.remove();
+            }, 1200);
+        });
+    });
+
+    // Initial load setup for appended configurations
+    updateCounterBadge();
 });
