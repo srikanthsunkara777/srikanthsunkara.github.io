@@ -309,3 +309,183 @@ footer {
         font-size: 2rem;
     }
 }
+
+/* ==========================================================================
+   🆕 FRESH ADDITIONS (JULY 2026 - COMPATIBILITY RETAINED)
+   ========================================================================== */
+
+/* 5. Custom Themed Web Scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+::-webkit-scrollbar-track {
+    background: var(--bg-color);
+}
+::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--text-muted);
+}
+
+/* 6. Automation Status Callout Banners */
+.status-banner {
+    padding: 1rem 1.25rem;
+    border-radius: 8px;
+    margin: 1.5rem 0;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    border-left: 4px solid transparent;
+}
+.status-banner.info {
+    background: rgba(37, 99, 235, 0.08);
+    color: var(--text-main);
+    border-left-color: var(--accent);
+}
+.status-banner.success {
+    background: rgba(16, 185, 129, 0.08);
+    color: var(--text-main);
+    border-left-color: var(--hero-italic);
+}
+
+/* 7. Code Blocks Inline Enhancement */
+pre code {
+    display: block;
+    padding: 0.2rem 0;
+    font-size: 0.9rem;
+    color: var(--text-main);
+}
+p code {
+    font-family: monospace;
+    background: var(--border-color);
+    padding: 0.15rem 0.4rem;
+    border-radius: 4px;
+    font-size: 0.9em;
+}
+
+/* 8. Hotkeys / Badge Indicators */
+.kbd-badge {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 2px 0 var(--border-color);
+    border-radius: 4px;
+    padding: 0.1rem 0.4rem;
+    font-size: 0.75rem;
+    font-family: monospace;
+    font-weight: bold;
+    color: var(--text-muted);
+}
+
+/* 9. Card Skeleton Loading/Pulse Utility Base */
+.pulse-loading {
+    animation: layoutPulse 1.8s infinite ease-in-out;
+}
+@keyframes layoutPulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.4; }
+    100% { opacity: 1; }
+}
+
+/* ==========================================================================
+   🆕 UI MICRO-INTERACTION & DYNAMIC ANIMATIONS (JULY 2026)
+   ========================================================================== */
+
+/* Smooth Entry Fade for the Card Grid Components */
+.card {
+    opacity: 0;
+    animation: layoutFadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Staggered entry delay simulation for natural page loading */
+.card:nth-child(1) { animation-delay: 0.05s; }
+.card:nth-child(2) { animation-delay: 0.10s; }
+.card:nth-child(3) { animation-delay: 0.15s; }
+.card:nth-child(4) { animation-delay: 0.20s; }
+.card:nth-child(n+5) { animation-delay: 0.25s; }
+
+@keyframes layoutFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Elegant Scaling Pulse for the Interactive Theme Toggle Option */
+#theme-toggle {
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+#theme-toggle:active {
+    transform: scale(0.8) rotate(-15deg);
+}
+
+/* Smooth Interactive Glow & Slide Effects for Primary Action Triggers */
+.filter-btn {
+    transition: all 0.25s ease;
+    position: relative;
+    overflow: hidden;
+}
+.filter-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.15);
+}
+.filter-btn:active {
+    transform: translateY(0);
+}
+
+/* Search Bar Ripple Indicator Tint On Active Input Focus */
+.search-wrapper input, .local-filter-input {
+    transition: all 0.3s ease;
+}
+.search-wrapper input:focus, .local-filter-input:focus {
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+    transform: translateY(-1px);
+}
+
+/* ==========================================================================
+   🆕 DYNAMIC HOVER LOVE SYMBOLS ACCENT (JULY 2026)
+   ========================================================================== */
+
+/* Establish absolute boundary context for structural heart elements */
+.card {
+    position: relative;
+    overflow: hidden; /* Prevents hearts from breaking layout bounds */
+}
+
+/* Base properties for dynamically injected love symbols */
+.floating-heart {
+    position: absolute;
+    pointer-events: none; /* Ensures hearts don't block link clicks or normal text selection */
+    font-size: 1.25rem;
+    color: #ef4444; /* Beautiful crimson red tone */
+    opacity: 0;
+    user-select: none;
+    z-index: 10;
+    animation: floatHeartUp 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+[data-theme="dark"] .floating-heart {
+    color: #fca5a5; /* Softer coral pink tone for dark mode readability */
+}
+
+@keyframes floatHeartUp {
+    0% {
+        transform: translate(-50%, -50%) scale(0.5) translateY(0);
+        opacity: 0;
+    }
+    15% {
+        opacity: 0.85;
+        transform: translate(-50%, -50%) scale(1.1) translateY(-10px);
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(0.8) translateY(-80px) rotate(15deg);
+        opacity: 0;
+    }
+}

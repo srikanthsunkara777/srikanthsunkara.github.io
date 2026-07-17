@@ -70,6 +70,22 @@
             font-size: 0.9rem;
         }
 
+        /* local filter input box framework alignment */
+        .local-filter-wrapper {
+            margin-bottom: 1.5rem;
+            width: 100%;
+        }
+        .local-filter-input {
+            width: 100%;
+            max-width: 400px;
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 0.6rem 1rem;
+            border-radius: 8px;
+            font-size: 0.95rem;
+        }
+
         pre {
             background: var(--bg-color);
             border: 1px solid var(--border-color);
@@ -77,12 +93,33 @@
             border-radius: 8px;
             overflow-x: auto;
             font-family: monospace;
+            position: relative; /* Context parent container for absolute copy button positioning */
         }
         code {
             color: #ef4444;
         }
         [data-theme="dark"] code {
             color: #fca5a5;
+        }
+
+        /* Copy Button injection styling hooks */
+        .copy-code-btn {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.75rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+        .copy-code-btn:hover {
+            color: var(--accent);
+            border-color: var(--accent);
         }
 
         /* Dropdown Wrapper Styling */
@@ -114,7 +151,7 @@
 
         /* Hide dynamic utilities gracefully during print output executions */
         @media print {
-            header, .action-bar, footer, #theme-toggle, summary::-webkit-details-marker {
+            header, .action-bar, .local-filter-wrapper, .copy-code-btn, footer, #theme-toggle, summary::-webkit-details-marker {
                 display: none !important;
             }
             .guide-content {
@@ -159,32 +196,176 @@
             <h1>Data Structures & Algorithms Roadmap</h1>
             <p style="color: var(--text-muted);">A structured guide detailing memory layouts, data flow management, optimization tactics, and algorithmic efficiency architectures.</p>
 
+            <div class="status-banner info">
+                <span>💡</span> <strong>Mastery Note:</strong> Arrays form the absolute foundation of low-level memory mapping and higher-level pointer manipulation algorithms.
+            </div>
+
             <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 2rem 0;">
 
-            <!-- Topic 1 Wrapper -->
+            <!-- In-Page Filtering Search Input Widget -->
+            <div class="local-filter-wrapper">
+                <input type="text" id="topic-search" class="local-filter-input" placeholder="🔍 Quick filter modules (e.g., Memory, Sliding Window, Matrix)...">
+            </div>
+
+            <!-- MODULE 1 -->
             <details class="topic-wrapper" open>
-                <summary class="topic-header">1. Linear Structures: Stacks & Vectors</summary>
+                <summary class="topic-header">1. Memory Architecture & Hardware Realities</summary>
                 <div class="topic-body">
-                    <p>Linear structures organize processing layers back-to-back. Stacks run on Last-In, First-Out layout paradigms, making them excellent solutions for transaction tracking engines.</p>
+                    <p>An array is a contiguous block of homogeneous memory cells. Because elements sit exactly next to each other at a fixed physical stride, the runtime hardware can locate any index instantly at <code>O(1)</code> time via direct pointer arithmetic:</p>
+                    <p style="padding-left: 1rem; font-style: italic; font-family: monospace;">Address(Arr[i]) = Base_Address + (i × Size_of_Element)</p>
 
-                    <h3>Example Blueprint: Stack Execution</h3>
-                    <pre><code>// Simple array implementation concept
-class ArrayStack {
-    private int[] data = new int[100];
-    private int topIndex = -1;
+                    <h3>Static vs. Dynamic Arrays</h3>
+                    <ul>
+                        <li><strong>Static Arrays:</strong> Fixed dimensions explicitly bound at runtime compilation. Allocated on the Stack.</li>
+                        <li><strong>Dynamic Arrays (ArrayList / Vector):</strong> Managed runtime heap allocation. When current maximum memory limit thresholds hit capacity, the engine instantiates a separate array at double capacity ($2 \times N$) and shifts existing indexes, dropping execution performance to an isolated <code>O(N)</code> complexity while maintaining an amortized <code>O(1)</code> insertion runtime.</li>
+                    </ul>
 
-    public void push(int value) {
-        data[++topIndex] = value;
+                    <h3>Example Blueprint: Low-Level Copy Telemetry</h3>
+                    <pre><code>// Static allocations vs deep system copying routines
+int[] source = {1, 2, 3, 4, 5};
+int[] destination = new int[source.length];
+
+// Direct array copy utilizes direct memory blitting (extremely high throughput)
+System.arraycopy(source, 0, destination, 0, source.length);</code></pre>
+                </div>
+            </details>
+
+            <!-- MODULE 2 -->
+            <details class="topic-wrapper">
+                <summary class="topic-header">2. The Two-Pointer Optimization Pattern</summary>
+                <div class="topic-body">
+                    <p>Instead of scaling poorly with nested iteration loops running at <code>O(N²)</code>, the two-pointer paradigm controls memory pointers tracking data configurations from both endpoints concurrently, converging linearly in <code>O(N)</code> time.</p>
+
+                    <h3>Classic Implementations</h3>
+                    <ul>
+                        <li><strong>Opposite Directions:</strong> Shifting pointers inwards (e.g., Palindrome validation, Two-Sum on sorted inputs).</li>
+                        <li><strong>Same Direction (Fast & Slow):</strong> Pointers moving at different velocities (e.g., De-duplicating arrays in-place).</li>
+                    </ul>
+
+                    <h3>Example Blueprint: Target Container Inversion</h3>
+                    <pre><code>public void reverseInPlace(int[] nums) {
+    int left = 0, right = nums.length - 1;
+    while (left &lt; right) {
+        int temp = nums[left];
+        nums[left] = nums[right];
+        nums[right] = temp;
+        left++;
+        right--;
     }
 }</code></pre>
                 </div>
             </details>
 
-            <!-- Topic 2 Wrapper -->
+            <!-- MODULE 3 -->
             <details class="topic-wrapper">
-                <summary class="topic-header">2. Big O Analysis & Search Time complexities</summary>
+                <summary class="topic-header">3. Sliding Window Strategy (Fixed & Dynamic)</summary>
                 <div class="topic-body">
-                    <p>Optimizing space and run configurations guarantees your testing sweeps operate instantly instead of scaling poorly over massive automation matrix distributions.</p>
+                    <p>The sliding window optimization transforms nested contiguous target tracking scans into linear calculations by maintaining a rolling metric range. Instead of re-evaluating internal array values from scratch at every step, the window updates dynamically by dropping elements exiting from the left tail and integrating incoming values on the right head.</p>
+
+                    <h3>Example Blueprint: Dynamic Subarray Expansion Tracking</h3>
+                    <pre><code>public int minSubArrayLen(int target, int[] nums) {
+    int minLength = Integer.MAX_VALUE;
+    int currentSum = 0;
+    int left = 0;
+
+    for (int right = 0; right &lt; nums.length; right++) {
+        currentSum += nums[right];
+
+        while (currentSum &gt;= target) {
+            minLength = Math.min(minLength, right - left + 1);
+            currentSum -= nums[left];
+            left++;
+        }
+    }
+    return minLength == Integer.MAX_VALUE ? 0 : minLength;
+}</code></pre>
+                </div>
+            </details>
+
+            <!-- MODULE 4 -->
+            <details class="topic-wrapper">
+                <summary class="topic-header">4. Prefix / Suffix Sum Aggregations</summary>
+                <div class="topic-body">
+                    <p>Prefix caching maps out progressive tracking transformations across data layers. By computing cumulative running computations over an input array beforehand, range sum requests drop from <code>O(N)</code> time to an immediate <code>O(1)</code> execution time by checking array offsets:</p>
+                    <p style="padding-left: 1rem; font-style: italic; font-family: monospace;">Sum(L to R) = Prefix[R] - Prefix[L - 1]</p>
+
+                    <h3>Example Blueprint: Pre-computed Range Lookup Evaluation</h3>
+                    <pre><code>// Build cumulative range caching structures
+int[] data = {3, 1, 4, 1, 5};
+int[] prefix = new int[data.length];
+prefix[0] = data[0];
+
+for (int i = 1; i &lt; data.length; i++) {
+    prefix[i] = prefix[i - 1] + data[i];
+}
+// Sum over range index 1 to 4 is evaluated instantly: prefix[4] - prefix[0]</code></pre>
+                </div>
+            </details>
+
+            <!-- MODULE 5 -->
+            <details class="topic-wrapper">
+                <summary class="topic-header">5. Multi-Dimensional Arrays & Matrix Rotations</summary>
+                <div class="topic-body">
+                    <p>Multi-dimensional matrices are mapped onto flat sequential system memory blocks using either Row-Major ordering (storing rows sequentially) or Column-Major ordering layouts.</p>
+
+                    <h3>In-Place Matrix Transposition Trick</h3>
+                    <p>To rotate a square matrix 90 degrees clockwise without allocating extra workspace memory: <strong>Transpose the matrix</strong> (swap coordinate values across the main diagonal: <code>matrix[i][j]</code> with <code>matrix[j][i]</code>) and then <strong>reverse each individual row</strong>.</p>
+
+                    <h3>Example Blueprint: Clockwise Matrix Transposition</h3>
+                    <pre><code>public void transposeSquareMatrix(int[][] matrix) {
+    int n = matrix.length;
+    for (int i = 0; i &lt; n; i++) {
+        for (int j = i + 1; j &lt; n; j++) {
+            int temp = matrix[i][j];
+            matrix[i][j] = matrix[j][i];
+            matrix[j][i] = temp;
+        }
+    }
+}</code></pre>
+                </div>
+            </details>
+
+            <!-- MODULE 6 -->
+            <details class="topic-wrapper">
+                <summary class="topic-header">6. Dutch National Flag & Partitioning Models</summary>
+                <div class="topic-body">
+                    <p>Partitioning strategies group elements into clear logical clusters within a single collection loop pass. The Dutch National Flag (DNF) technique uses three tracking pointers (Low, Mid, High) to order data points (e.g., sorting 0s, 1s, and 2s) in a single linear pass with zero external memory allocations.</p>
+
+                    <h3>Example Blueprint: Three-Pointer Clustering Partition</h3>
+                    <pre><code>public void sortColors(int[] nums) {
+    int low = 0, mid = 0, high = nums.length - 1;
+    while (mid &lt;= high) {
+        if (nums[mid] == 0) {
+            int temp = nums[low];
+            nums[low++] = nums[mid];
+            nums[mid++] = temp;
+        } else if (nums[mid] == 1) {
+            mid++;
+        } else {
+            int temp = nums[mid];
+            nums[mid] = nums[high];
+            nums[high--] = temp;
+        }
+    }
+}</code></pre>
+                </div>
+            </details>
+
+            <!-- MODULE 7 -->
+            <details class="topic-wrapper">
+                <summary class="topic-header">7. Bitwise Array Operations & Subset Masking</summary>
+                <div class="topic-body">
+                    <p>Arrays can interface directly with low-level binary engines. Using bitwise operations allows you to track element frequencies, isolate distinct values, or generate complete exponential power set distributions instantly by matching integer bits against target positions.</p>
+
+                    <h3>Example Blueprint: Element De-duplication using XOR</h3>
+                    <pre><code>// Finds the unique element in an array where all other values appear twice
+public int findUniqueElement(int[] nums) {
+    int uniqueMask = 0;
+    for (int currentNum : nums) {
+        uniqueMask ^= currentNum; // XOR cancellation pattern wipes out duplicates
+    }
+    return uniqueMask;
+}</code></pre>
                 </div>
             </details>
 
@@ -197,6 +378,7 @@ class ArrayStack {
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // Theme Toggle Execution Module
             const themeToggle = document.getElementById('theme-toggle');
             const currentTheme = localStorage.getItem('theme') || 'light';
 
@@ -216,6 +398,51 @@ class ArrayStack {
                     localStorage.setItem('theme', 'dark');
                     themeToggle.textContent = '☀️';
                 }
+            });
+
+            // Feature Addition 1: Dynamic In-Page Text Filter Module
+            const searchInput = document.getElementById('topic-search');
+            const topics = document.querySelectorAll('details.topic-wrapper');
+
+            searchInput.addEventListener('input', (e) => {
+                const term = e.target.value.toLowerCase().trim();
+
+                topics.forEach(topic => {
+                    const headerText = topic.querySelector('.topic-header').textContent.toLowerCase();
+                    if (headerText.includes(term)) {
+                        topic.style.display = 'block';
+                        if (term.length > 0) {
+                            topic.setAttribute('open', '');
+                        }
+                    } else {
+                        topic.style.display = 'none';
+                    }
+                });
+            });
+
+            // Feature Addition 2: Auto-injected Code Copy-to-Clipboard Action Component
+            const codeBlocks = document.querySelectorAll('pre');
+            codeBlocks.forEach((block) => {
+                const copyBtn = document.createElement('button');
+                copyBtn.className = 'copy-code-btn';
+                copyBtn.textContent = 'Copy';
+
+                block.appendChild(copyBtn);
+
+                copyBtn.addEventListener('click', async () => {
+                    const codeText = block.querySelector('code').textContent;
+                    try {
+                        await navigator.clipboard.writeText(codeText);
+                        copyBtn.textContent = 'Copied!';
+                        copyBtn.style.color = '#10b981'; // Success confirmation color indicator
+                        setTimeout(() => {
+                            copyBtn.textContent = 'Copy';
+                            copyBtn.style.color = '';
+                        }, 2000);
+                    } catch (err) {
+                        copyBtn.textContent = 'Error';
+                    }
+                });
             });
         });
     </script>
