@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Srikanth Learning Hub</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <header>
+        <nav class="nav-container">
+            <a href="#" class="logo"><span>⚡</span> Srikanth Automation Playground</a>
+            <div class="nav-links">
+                <a href="#guides">Guides</a>
+                <a href="#cheat-sheets">Cheat Sheets</a>
+                <button id="theme-toggle" aria-label="Toggle Theme">🌙</button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container">
+
+        <!-- Dynamic Session & User Customization Panel -->
+        <section class="dynamic-widget">
+            <div id="welcome-message">Hello, Engineer! 👋</div>
+            <div class="widget-controls">
+                <div class="control-item">
+                    <label for="country-select">🌐 Region:</label>
+                    <select id="country-select">
+                        <option value="Global">Global / Universal</option>
+                        <option value="India">🇮🇳 India</option>
+                        <option value="United States">🇺🇸 United States</option>
+                        <option value="United Kingdom">🇬🇧 United Kingdom</option>
+                        <option value="Germany">🇩🇪 Germany</option>
+                        <option value="Singapore">🇸🇬 Singapore</option>
+                    </select>
+                </div>
+                <div class="control-item font-mono" id="live-clock">
+                    🕒 00:00:00 AM
+                </div>
+                <div class="control-item session-pill">
+                    🚀 Fresh Sessions: <span id="session-count">0</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <h1>Learn <em>Programming & Automation</em> Engineering <em>With Srikanth Sunkara</em></h1>
+            <p>A curated collection of production-ready code snippets, automation techniques, and language deep dives.</p>
+
+            <!-- Quick Repo Metrics Bar -->
+            <div class="repo-metrics-bar">
+                <div class="metric-item"><strong>2+</strong> <span>Languages</span></div>
+                <div class="metric-item"><strong>5+</strong> <span>Core Tools</span></div>
+                <div class="metric-item"><strong>10+</strong> <span>Techniques</span></div>
+                <div class="metric-item active-pill"><span>100% Free</span></div>
+            </div>
+
+            <div class="search-wrapper" style="position: relative; max-width: 500px; margin: 0 auto 1.5rem;">
+                <input type="text" id="search-bar" placeholder="Search guides, tools, or techniques..." style="width: 100%; margin-bottom: 0;">
+                <!-- Clear Search Button -->
+                <button id="clear-search" style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; display: none; font-size: 1.1rem; color: var(--text-muted);">✕</button>
+            </div>
+
+            <div class="filter-buttons" style="flex-wrap: wrap; row-gap: 0.5rem;">
+                <button class="filter-btn active" data-filter="all">All Ecosystems</button>
+                <button class="filter-btn" data-filter="languages">Programming Languages</button>
+                <button class="filter-btn" data-filter="dsa">DSA Mastery</button>
+                <button class="filter-btn" data-filter="tools">Automation Tools</button>
+                <button class="filter-btn" data-filter="techniques">Techniques</button>
+            </div>
+        </section>
+
+        <!-- Guides Grid -->
+        <section id="guides" class="grid-section">
+            <h2>📚 Engineering Guides</h2>
+            <div class="grid" id="guides-grid">
+
+                <!-- Card 1: Java (Programming Languages Category) -->
+                <div class="card" data-category="languages">
+                    <div class="card-icon">☕</div>
+                    <div class="card-meta"><span>Java</span> &middot; <span>Beginner-Advanced</span></div>
+                    <h3>Java Programming Foundations</h3>
+                    <p>Learn core concepts, arrays, object-oriented paradigms, and basic program architecture.</p>
+                    <a href="./guides/java-dsa.html" class="card-link">Open Guide →</a>
+                </div>
+
+                <!-- Card 2: Python (Programming Languages Category) -->
+                <div class="card" data-category="languages">
+                    <div class="card-icon">🐍</div>
+                    <div class="card-meta"><span>Python</span> &middot; <span>Beginner-Advanced</span></div>
+                    <h3>Python Architecture & OOP</h3>
+                    <p>Master Python scripting, core methods, interfaces, inheritance, encapsulation, and polymorphism.</p>
+                    <a href="./guides/python-core.html" class="card-link">Open Guide →</a>
+                </div>
+
+                <!-- Card 3: DSA Mastery Category -->
+                <div class="card" data-category="dsa">
+                    <div class="card-icon">📊</div>
+                    <div class="card-meta"><span>DSA</span> &middot; <span>Structures & Algorithms</span></div>
+                    <h3>Data Structures Like a Pro</h3>
+                    <p>In-depth roadmaps for mastering crucial data structures including Vectors, Stacks, Lists, and sorting logic blueprints.</p>
+                    <a href="./guides/dsa-mastery.html" class="card-link">Open Guide →</a>
+                </div>
+
+                <!-- Card 4: Automation Tools -->
+                <div class="card" data-category="tools">
+                    <div class="card-icon">🧪</div>
+                    <div class="card-meta"><span>Automation Tools</span> &middot; <span>Frameworks</span></div>
+                    <h3>Automation Tools</h3>
+                    <p>Designing highly scalable automated testing frameworks using parallel execution suites and clean reporting tools.</p>
+                    <a href="./guides/automation-frameworks.html" class="card-link">Open Guide →</a>
+                </div>
+
+                <!-- Card 5: Techniques -->
+                <div class="card" data-category="techniques">
+                    <div class="card-icon">🎯</div>
+                    <div class="card-meta"><span>Testing Techniques</span> &middot; <span>Advanced</span></div>
+                    <h3>All Techniques Like XPaths/CSS/Locators/DOM-related</h3>
+                    <p>Techniques for building reliable, self-healing automation routines that don't break on retry.</p>
+                    <a href="./guides/idempotent-automation.html" class="card-link">Open Guide →</a>
+                </div>
+
+                <!-- Card 6: GIT -->
+                <div class="card" data-category="techniques">
+                    <div class="card-icon">🔀</div>
+                    <div class="card-meta"><span>Git</span> &middot; <span>Version Control</span></div>
+                    <h3>Git & CI/CD Pipelines</h3>
+                    <p>Master branches, commit structures, remote repository actions, and automated integration workflows.</p>
+                    <a href="./guides/GIT.html" class="card-link">Open Guide →</a>
+                </div>
+
+                <!-- Card 7: AI -->
+                <div class="card" data-category="techniques">
+                    <div class="card-icon">🧠</div>
+                    <div class="card-meta"><span>AI Mastery</span> &middot; <span>Advanced</span></div>
+                    <h3>AI Mastery</h3>
+                    <p>Explore engineering integrations, smart element assertions, and AI-driven automation testing suites.</p>
+                    <a href="./guides/AI.html" class="card-link">Open Guide →</a>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" title="Go to top" style="position: fixed; bottom: 25px; right: 25px; display: none; background: var(--accent); color: white; border: none; padding: 10px 14px; border-radius: 50%; font-size: 1.2rem; cursor: pointer; z-index: 99; box-shadow: 0 4px 6px rgba(0,0,0,0.15); transition: opacity 0.3s;">▲</button>
+
+    <!-- Updated Footer with Social Channels -->
+    <footer>
+        <div class="footer-content">
+            <p>Created By <strong>Srikanth Sunkara</strong></p>
+            <p class="footer-connect">
+                🤝 Feel free to connect:
+                <a href="https://www.linkedin.com/in/srikanth-sunkara7/" target="_blank" rel="noopener noreferrer" class="social-link">LinkedIn</a> &middot;
+                <a href="https://www.instagram.com/Srikanth_sunkara7" target="_blank" rel="noopener noreferrer" class="social-link">Instagram (@Srikanth_sunkara7)</a>
+            </p>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+</html>
