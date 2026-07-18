@@ -13,6 +13,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const clearSearchBtn = document.getElementById('clear-search');
     const backToTopBtn = document.getElementById('back-to-top');
 
+    // --- About Me Modal Elements ---
+    const openModalBtn = document.getElementById('about-me-trigger');
+    const closeModalX = document.getElementById('modal-close-x');
+    const closeModalBtn = document.getElementById('modal-close-btn');
+    const modalOverlay = document.getElementById('about-modal');
+    const modalCard = modalOverlay ? modalOverlay.querySelector('.modal-card') : null;
+
     // ==========================================
     // 1. THEME TOGGLE ENGINE
     // ==========================================
@@ -111,7 +118,6 @@ document.addEventListener('DOMContentLoaded', () => {
     function filterCards() {
         const searchText = searchBar.value.toLowerCase();
 
-        // Show or hide the inline clear button based on input length
         if (searchText.length > 0) {
             if (clearSearchBtn) clearSearchBtn.style.display = 'block';
         } else {
@@ -131,7 +137,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (matchesSearch && matchesFilter) {
                 card.style.display = 'block';
-                // Trigger internal highlighting function if active
                 if (typeof highlightMatchingText === 'function') {
                     highlightMatchingText(card, searchText);
                 }
@@ -140,7 +145,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // Trigger empty state counter adjustments if active
         if (typeof updateCounterBadge === 'function') {
             updateCounterBadge();
         }
@@ -159,17 +163,15 @@ document.addEventListener('DOMContentLoaded', () => {
     // ==========================================
     // 5. EXTRA FEATURES LOGIC (Clear & Scroll)
     // ==========================================
-    // Clear Search Input Action
     if (clearSearchBtn) {
         clearSearchBtn.addEventListener('click', () => {
             searchBar.value = '';
             clearSearchBtn.style.display = 'none';
             searchBar.focus();
-            filterCards(); // Reset UI layout view
+            filterCards();
         });
     }
 
-    // Monitor page scroll coordinates to show/hide "Back to Top"
     window.addEventListener('scroll', () => {
         if (backToTopBtn) {
             if (window.scrollY > 300) {
@@ -180,7 +182,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Handle smooth scroll animation back to top
     if (backToTopBtn) {
         backToTopBtn.addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -188,25 +189,65 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================
-    // 🆕 6. GLOBAL HOTKEY ENGINE (Focus & Escape)
+    // 🆕 5.5 ABOUT ME INTERACTIVE MODAL ENGINE
+    // ==========================================
+    const openModal = (e) => {
+        if (e) e.preventDefault();
+        if (modalOverlay) {
+            modalOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+
+            if (modalCard) {
+                modalCard.style.maxHeight = '85vh';
+                modalCard.style.overflowY = 'auto';
+            }
+        }
+    };
+
+    const closeModal = () => {
+        if (modalOverlay) {
+            modalOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    };
+
+    if (openModalBtn) openModalBtn.addEventListener('click', openModal);
+    if (closeModalX) closeModalX.addEventListener('click', closeModal);
+    if (closeModalBtn) closeModalBtn.addEventListener('click', closeModal);
+
+    if (modalOverlay) {
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) {
+                closeModal();
+            }
+        });
+    }
+
+    // ==========================================
+    // 6. GLOBAL HOTKEY ENGINE (Focus & Escape)
     // ==========================================
     document.addEventListener('keydown', (e) => {
-        // Pressing '/' focuses the search bar instantly unless typing in an input
         if (e.key === '/' && document.activeElement !== searchBar) {
-            e.preventDefault();
-            searchBar.focus();
-            searchBar.select();
+            if (!modalOverlay || !modalOverlay.classList.contains('active')) {
+                e.preventDefault();
+                searchBar.focus();
+                searchBar.select();
+            }
         }
-        // Pressing 'Escape' clears focus and resets the search parameter state
-        if (e.key === 'Escape' && document.activeElement === searchBar) {
-            searchBar.value = '';
-            searchBar.blur();
-            filterCards();
+        if (e.key === 'Escape') {
+            if (modalOverlay && modalOverlay.classList.contains('active')) {
+                closeModal();
+            }
+            else if (document.activeElement === searchBar) {
+                searchBar.value = '';
+                searchBar.blur();
+                filterCards();
+            }
         }
     });
 
     // ==========================================
-    // 🆕 7. AUTOMATIC VISUAL MATCH HIGHLIGHTER
+    // 7. AUTOMATIC VISUAL MATCH HIGHLIGHTER
     // ==========================================
     function highlightMatchingText(card, term) {
         const titleEl = card.querySelector('h3');
@@ -223,13 +264,80 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const regex = new RegExp(`(${term.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')})`, 'gi');
 
-        // Wrap matching strings inside your structural style definitions
         titleEl.innerHTML = card.dataset.originalTitle.replace(regex, `<mark style="background: rgba(254, 240, 138, 0.6); color: #000; border-radius: 2px; padding: 0 2px;">$1</mark>`);
         descEl.innerHTML = card.dataset.originalDesc.replace(regex, `<mark style="background: rgba(254, 240, 138, 0.6); color: #000; border-radius: 2px; padding: 0 2px;">$1</mark>`);
     }
 
     // ==========================================
-    // 🆕 8. METRIC BADGE COUNTER TELEMETRY
+    // 🆕 7.5 INLINE SELECTION SEARCH MAGNIFIER ENGINE
+    // ==========================================
+    let magnifierBubble = null;
+    const mainWorkspace = document.querySelector('.container');
+
+    if (mainWorkspace) {
+        mainWorkspace.addEventListener('mouseup', () => {
+            removeMagnifierBubble();
+
+            const selection = window.getSelection();
+            const selectedText = selection.toString().trim();
+
+            if (selectedText.length > 0) {
+                const range = selection.getRangeAt(0);
+                const rect = range.getBoundingClientRect();
+
+                magnifierBubble = document.createElement('button');
+                magnifierBubble.innerHTML = '🔍 Search Google';
+                magnifierBubble.setAttribute('aria-label', `Search Google for ${selectedText}`);
+
+                Object.assign(magnifierBubble.style, {
+                    position: 'fixed',
+                    top: `${rect.top - 42}px`,
+                    left: `${rect.left + (rect.width / 2) - 65}px`,
+                    zIndex: '2000',
+                    background: 'linear-gradient(135deg, #2563eb, #8b5cf6)',
+                    color: '#ffffff',
+                    border: 'none',
+                    padding: '0.4rem 0.8rem',
+                    borderRadius: '20px',
+                    fontSize: '0.8rem',
+                    fontWeight: '700',
+                    cursor: 'pointer',
+                    boxShadow: '0 4px 12px rgba(139, 92, 246, 0.35)',
+                    transition: 'transform 0.2s ease',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '0.3rem'
+                });
+
+                magnifierBubble.addEventListener('mouseenter', () => magnifierBubble.style.transform = 'scale(1.05)');
+                magnifierBubble.addEventListener('mouseleave', () => magnifierBubble.style.transform = 'scale(1)');
+
+                magnifierBubble.addEventListener('mousedown', (clickEvent) => {
+                    clickEvent.preventDefault();
+                    window.open(`https://www.google.com/search?q=${encodeURIComponent(selectedText)}`, '_blank', 'noopener,noreferrer');
+                    removeMagnifierBubble();
+                });
+
+                document.body.appendChild(magnifierBubble);
+            }
+        });
+    }
+
+    document.addEventListener('mousedown', (e) => {
+        if (magnifierBubble && !magnifierBubble.contains(e.target)) {
+            removeMagnifierBubble();
+        }
+    });
+
+    function removeMagnifierBubble() {
+        if (magnifierBubble) {
+            magnifierBubble.remove();
+            magnifierBubble = null;
+        }
+    }
+
+    // ==========================================
+    // 8. METRIC BADGE COUNTER TELEMETRY
     // ==========================================
     function updateCounterBadge() {
         let activeCount = 0;
@@ -255,10 +363,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================
-    // 🆕 9. DYNAMIC HOVER HOOK FOR FLOATING LOVE SYMBOLS
+    // 9. DYNAMIC HOVER HOOK FOR FLOATING LOVE SYMBOLS
     // ==========================================
     let lastHeartSpawn = 0;
-    const spawnThrottleMs = 150; // Controls rate limit density of heart objects
+    const spawnThrottleMs = 150;
 
     cards.forEach(card => {
         card.addEventListener('mousemove', (e) => {
@@ -266,31 +374,26 @@ document.addEventListener('DOMContentLoaded', () => {
             if (currentTime - lastHeartSpawn < spawnThrottleMs) return;
             lastHeartSpawn = currentTime;
 
-            // Compute precision placement coordinate bounds within the card canvas
             const rect = card.getBoundingClientRect();
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
 
-            // Create structural visual heart node
             const heart = document.createElement('span');
             heart.className = 'floating-heart';
             heart.innerHTML = '❤️';
             heart.style.left = `${x}px`;
             heart.style.top = `${y}px`;
 
-            // Give each particle a slight random variance for a natural feel
             const randomScale = 0.7 + Math.random() * 0.6;
             heart.style.transform = `translate(-50%, -50%) scale(${randomScale})`;
 
             card.appendChild(heart);
 
-            // Clean up DOM tree footprint after the animation finishes running
             setTimeout(() => {
                 heart.remove();
             }, 1200);
         });
     });
 
-    // Initial load setup for appended configurations
     updateCounterBadge();
 });
