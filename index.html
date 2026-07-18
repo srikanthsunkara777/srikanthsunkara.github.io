@@ -12,6 +12,7 @@
         <nav class="nav-container">
             <a href="#" class="logo"><span>⚡</span> Srikanth Automation Playground</a>
             <div class="nav-links">
+                <a href="#" id="about-me-trigger">About Me</a>
                 <a href="#guides">Guides</a>
                 <a href="#cheat-sheets">Cheat Sheets</a>
                 <button id="theme-toggle" aria-label="Toggle Theme">🌙</button>
@@ -60,7 +61,6 @@
 
             <div class="search-wrapper" style="position: relative; max-width: 500px; margin: 0 auto 1.5rem;">
                 <input type="text" id="search-bar" placeholder="Search guides, tools, or techniques..." style="width: 100%; margin-bottom: 0;">
-                <!-- Clear Search Button -->
                 <button id="clear-search" style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; display: none; font-size: 1.1rem; color: var(--text-muted);">✕</button>
             </div>
 
@@ -78,7 +78,7 @@
             <h2>📚 Engineering Guides</h2>
             <div class="grid" id="guides-grid">
 
-                <!-- Card 1: Java (Programming Languages Category) -->
+                <!-- Card 1: Java -->
                 <div class="card" data-category="languages">
                     <div class="card-icon">☕</div>
                     <div class="card-meta"><span>Java</span> &middot; <span>Beginner-Advanced</span></div>
@@ -87,7 +87,7 @@
                     <a href="./guides/java-dsa.html" class="card-link">Open Guide →</a>
                 </div>
 
-                <!-- Card 2: Python (Programming Languages Category) -->
+                <!-- Card 2: Python -->
                 <div class="card" data-category="languages">
                     <div class="card-icon">🐍</div>
                     <div class="card-meta"><span>Python</span> &middot; <span>Beginner-Advanced</span></div>
@@ -96,7 +96,7 @@
                     <a href="./guides/python-core.html" class="card-link">Open Guide →</a>
                 </div>
 
-                <!-- Card 3: DSA Mastery Category -->
+                <!-- Card 3: DSA Mastery -->
                 <div class="card" data-category="dsa">
                     <div class="card-icon">📊</div>
                     <div class="card-meta"><span>DSA</span> &middot; <span>Structures & Algorithms</span></div>
@@ -145,10 +145,35 @@
         </section>
     </main>
 
-    <!-- Back to Top Button -->
+    <!-- --- About Me Modal Pop-up Structure --- -->
+    <div class="modal-overlay" id="about-modal">
+        <div class="modal-card">
+            <button class="modal-close" id="modal-close-x" aria-label="Close modal">✕</button>
+            <div class="modal-header">
+                <div class="modal-avatar">🎖️</div>
+                <div>
+                    <h2>Srikanth Sunkara</h2>
+                    <p>Engineering Lead - Automation</p>
+                </div>
+            </div>
+            <div class="modal-body">
+                <p>Hi, I am <strong>Srikanth Sunkara</strong>. I design highly reliable, self-healing validation frameworks and scale test automation infrastructure from the ground up.</p>
+                <ul>
+                    <li>🚀 <strong>Engineering Lead (Automation):</strong> Currently leading strategic QA architecture initiatives, optimizing test practices, and guiding automation roadmaps.</li>
+                    <li>🏥 <strong>Senior Software Engineer @ CitiusTech (2 Years):</strong> Architected scalable end-to-end framework layers, specializing in complex enterprise workflows and deep technical coverage.</li>
+                    <li>📦 <strong>SDET @ Darwinbox (1 Year):</strong> Spearheaded robust test suites and functional components for highly scalable, cloud-native product ecosystems.</li>
+                    <li>🔍 <strong>Jr. Test Engineer @ Avontix (2 Years):</strong> Cultivated core functional verification skills, framework structures, and root-cause analysis fundamentals.</li>
+                    <li>🛠️ <strong>Deep Automation Stack:</strong> Production experience building and scaling framework solutions across <strong>Java</strong> and <strong>Python</strong> paired with <strong>Selenium</strong> and <strong>Playwright</strong>.</li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-close-modal" id="modal-close-btn">Awesome!</button>
+            </div>
+        </div>
+    </div>
+
     <button id="back-to-top" title="Go to top" style="position: fixed; bottom: 25px; right: 25px; display: none; background: var(--accent); color: white; border: none; padding: 10px 14px; border-radius: 50%; font-size: 1.2rem; cursor: pointer; z-index: 99; box-shadow: 0 4px 6px rgba(0,0,0,0.15); transition: opacity 0.3s;">▲</button>
 
-    <!-- Updated Footer with Social Channels -->
     <footer>
         <div class="footer-content">
             <p>Created By <strong>Srikanth Sunkara</strong></p>

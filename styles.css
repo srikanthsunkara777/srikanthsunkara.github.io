@@ -1,23 +1,31 @@
 :root {
-    --bg-color: #f8f9fa;
-    --card-bg: #ffffff;
-    --text-main: #212529;
-    --text-muted: #6c757d;
-    --accent: #2563eb;
-    --accent-hover: #1d4ed8;
-    --border-color: #e5e7eb;
-    --hero-italic: #10b981;
+    /* 🎨 Light Mode: Clean Tech Canvas */
+    --bg-color: #f4f6f9;               /* Slate-tinted clear layout background */
+    --card-bg: #ffffff;                /* Pure white card surface container */
+    --text-main: #0f172a;              /* Ink dark primary typography */
+    --text-muted: #475569;             /* Balanced subtle steel description text */
+    --accent: #2563eb;                 /* High-performance vivid blue accent anchor */
+    --accent-hover: #1d4ed8;           /* Deep active hover link color */
+    --border-color: #e2e8f0;           /* Soft elegant structural boundary line */
+    --hero-italic: #0d9488;            /* Bright emerald highlight anchor */
+
+    /* 🎛️ Pane-Specific Overrides */
+    --widget-bg: #ffffff;              /* Clean white surface for top telemetry pane */
 }
 
 [data-theme="dark"] {
-    --bg-color: #0f172a;
-    --card-bg: #1e293b;
-    --text-main: #f8fafc;
-    --text-muted: #94a3b8;
-    --accent: #3b82f6;
-    --accent-hover: #60a5fa;
-    --border-color: #334155;
-    --hero-italic: #34d399;
+    /* 🌌 Dark Mode: Premium Deep Cyber Slate */
+    --bg-color: #090d16;               /* Ultra-dark deep matte space canvas */
+    --card-bg: #11192e;                /* High-contrast solid dark slate pane container */
+    --text-main: #f8fafc;              /* Pristine snow white typography */
+    --text-muted: #94a3b8;             /* Cool metallic muted descriptive text */
+    --accent: #3b82f6;                 /* Neon cyber blue functional core color */
+    --accent-hover: #60a5fa;           /* Bright interactive neon hover state */
+    --border-color: #1e293b;           /* Clean dark boundary grid outline */
+    --hero-italic: #10b981;            /* Vibrant radioactive neon green accent text */
+
+    /* 🎛️ Pane-Specific Overrides */
+    --widget-bg: #131d35;              /* Shifted deep navy tone for the metrics pane */
 }
 
 body {
@@ -163,20 +171,18 @@ footer {
     text-align: center;
     padding: 3rem 1rem;
     color: var(--text-muted);
-    font-size: 0.9rem;
+    font-size: 0.9.rem;
     border-top: 1px solid var(--border-color);
     margin-top: 4rem;
 }
 
-
 /* ==========================================================================
-   🆕 EXTRA FEATURES STYLING (DO NOT DISTURB EXISTING CODE ABOVE)
+   Extra Features Layout Configurations
    ========================================================================== */
 
-/* 1. Dynamic User Customization Panel Layout */
 .dynamic-widget {
-    background: var(--card-bg);
-    border: 1px solid var(--border-color);
+    background-color: var(--widget-bg) !important;
+    border: 1px solid var(--border-color) !important;
     border-radius: 12px;
     padding: 1rem 1.5rem;
     margin-top: 1rem;
@@ -185,6 +191,15 @@ footer {
     align-items: center;
     flex-wrap: wrap;
     gap: 1rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+}
+[data-theme="dark"] .dynamic-widget {
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+}
+
+.grid-section {
+    background: transparent;
+    padding: 1rem 0;
 }
 
 #welcome-message {
@@ -237,7 +252,6 @@ footer {
     border-color: var(--accent);
 }
 
-/* 2. Repo Metrics Custom Styling */
 .repo-metrics-bar {
     display: flex;
     justify-content: center;
@@ -272,7 +286,6 @@ footer {
     color: #0f172a;
 }
 
-/* 3. Footer Connectivity Styles */
 .footer-connect {
     margin-top: 0.5rem;
     font-size: 0.95rem;
@@ -290,12 +303,10 @@ footer {
     color: var(--accent-hover);
 }
 
-/* 4. Scroll Back to Top Button Dynamics */
 #back-to-top:hover {
     transform: translateY(-3px) scale(1.05);
 }
 
-/* Responsive breakpoint configurations */
 @media (max-width: 768px) {
     .dynamic-widget {
         flex-direction: column;
@@ -310,11 +321,7 @@ footer {
     }
 }
 
-/* ==========================================================================
-   🆕 FRESH ADDITIONS (JULY 2026 - COMPATIBILITY RETAINED)
-   ========================================================================== */
-
-/* 5. Custom Themed Web Scrollbar */
+/* Web Scrollbar */
 ::-webkit-scrollbar {
     width: 10px;
     height: 10px;
@@ -330,7 +337,7 @@ footer {
     background: var(--text-muted);
 }
 
-/* 6. Automation Status Callout Banners */
+/* Banners & Blocks */
 .status-banner {
     padding: 1rem 1.25rem;
     border-radius: 8px;
@@ -352,7 +359,6 @@ footer {
     border-left-color: var(--hero-italic);
 }
 
-/* 7. Code Blocks Inline Enhancement */
 pre code {
     display: block;
     padding: 0.2rem 0;
@@ -367,7 +373,6 @@ p code {
     font-size: 0.9em;
 }
 
-/* 8. Hotkeys / Badge Indicators */
 .kbd-badge {
     background: var(--card-bg);
     border: 1px solid var(--border-color);
@@ -380,7 +385,6 @@ p code {
     color: var(--text-muted);
 }
 
-/* 9. Card Skeleton Loading/Pulse Utility Base */
 .pulse-loading {
     animation: layoutPulse 1.8s infinite ease-in-out;
 }
@@ -390,17 +394,11 @@ p code {
     100% { opacity: 1; }
 }
 
-/* ==========================================================================
-   🆕 UI MICRO-INTERACTION & DYNAMIC ANIMATIONS (JULY 2026)
-   ========================================================================== */
-
-/* Smooth Entry Fade for the Card Grid Components */
+/* Entry Animations & Micro-Interactions */
 .card {
     opacity: 0;
     animation: layoutFadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
-
-/* Staggered entry delay simulation for natural page loading */
 .card:nth-child(1) { animation-delay: 0.05s; }
 .card:nth-child(2) { animation-delay: 0.10s; }
 .card:nth-child(3) { animation-delay: 0.15s; }
@@ -418,7 +416,6 @@ p code {
     }
 }
 
-/* Elegant Scaling Pulse for the Interactive Theme Toggle Option */
 #theme-toggle {
     transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
@@ -426,7 +423,6 @@ p code {
     transform: scale(0.8) rotate(-15deg);
 }
 
-/* Smooth Interactive Glow & Slide Effects for Primary Action Triggers */
 .filter-btn {
     transition: all 0.25s ease;
     position: relative;
@@ -440,7 +436,6 @@ p code {
     transform: translateY(0);
 }
 
-/* Search Bar Ripple Indicator Tint On Active Input Focus */
 .search-wrapper input, .local-filter-input {
     transition: all 0.3s ease;
 }
@@ -449,43 +444,392 @@ p code {
     transform: translateY(-1px);
 }
 
-/* ==========================================================================
-   🆕 DYNAMIC HOVER LOVE SYMBOLS ACCENT (JULY 2026)
-   ========================================================================== */
-
-/* Establish absolute boundary context for structural heart elements */
+/* Hover Elements */
 .card {
     position: relative;
-    overflow: hidden; /* Prevents hearts from breaking layout bounds */
+    overflow: hidden;
 }
-
-/* Base properties for dynamically injected love symbols */
 .floating-heart {
     position: absolute;
-    pointer-events: none; /* Ensures hearts don't block link clicks or normal text selection */
+    pointer-events: none;
     font-size: 1.25rem;
-    color: #ef4444; /* Beautiful crimson red tone */
+    color: #ef4444;
     opacity: 0;
     user-select: none;
     z-index: 10;
     animation: floatHeartUp 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
 }
-
 [data-theme="dark"] .floating-heart {
-    color: #fca5a5; /* Softer coral pink tone for dark mode readability */
+    color: #fca5a5;
+}
+@keyframes floatHeartUp {
+    0% { transform: translate(-50%, -50%) scale(0.5) translateY(0); opacity: 0; }
+    15% { opacity: 0.85; transform: translate(-50%, -50%) scale(1.1) translateY(-10px); }
+    100% { transform: translate(-50%, -50%) scale(0.8) translateY(-80px) rotate(15deg); opacity: 0; }
 }
 
-@keyframes floatHeartUp {
-    0% {
-        transform: translate(-50%, -50%) scale(0.5) translateY(0);
-        opacity: 0;
-    }
-    15% {
-        opacity: 0.85;
-        transform: translate(-50%, -50%) scale(1.1) translateY(-10px);
-    }
-    100% {
-        transform: translate(-50%, -50%) scale(0.8) translateY(-80px) rotate(15deg);
-        opacity: 0;
-    }
+
+/* ==========================================================================
+   🌈 BRAND NEW ADDITIONS: HIGH-VISIBILITY COLOR OVERRIDES
+   ========================================================================== */
+
+/* 1. Bright & Colorful Navigation Link Badges (About Me, Guides, Cheat Sheets) */
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Target About Me specially */
+.nav-links a[id="about-me-trigger"] {
+    background: linear-gradient(135deg, #ec4899, #f43f5e) !important;
+    color: #ffffff !important;
+    padding: 0.4rem 0.9rem;
+    border-radius: 8px;
+    font-weight: 700;
+    box-shadow: 0 4px 10px rgba(236, 72, 153, 0.25);
+    transition: all 0.2s ease;
+}
+.nav-links a[id="about-me-trigger"]:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 14px rgba(236, 72, 153, 0.4);
+    filter: brightness(1.05);
+}
+
+/* Target Guides */
+.nav-links a[href="#guides"] {
+    background: linear-gradient(135deg, #8b5cf6, #6366f1) !important;
+    color: #ffffff !important;
+    padding: 0.4rem 0.9rem;
+    border-radius: 8px;
+    font-weight: 700;
+    box-shadow: 0 4px 10px rgba(139, 92, 246, 0.25);
+    transition: all 0.2s ease;
+}
+.nav-links a[href="#guides"]:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 14px rgba(139, 92, 246, 0.4);
+    filter: brightness(1.05);
+}
+
+/* Target Cheat Sheets */
+.nav-links a[id="cheat-sheets"], .nav-links a[href="#cheat-sheets"] {
+    background: linear-gradient(135deg, #06b6d4, #0ea5e9) !important;
+    color: #ffffff !important;
+    padding: 0.4rem 0.9rem;
+    border-radius: 8px;
+    font-weight: 700;
+    box-shadow: 0 4px 10px rgba(6, 182, 212, 0.25);
+    transition: all 0.2s ease;
+}
+.nav-links a[id="cheat-sheets"]:hover, .nav-links a[href="#cheat-sheets"]:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 14px rgba(6, 182, 212, 0.4);
+    filter: brightness(1.05);
+}
+
+
+/* 2. Distinct Unique Multi-Color Gradient Overlays For All 7 Grid Cards */
+#guides-grid .card {
+    background-color: var(--card-bg) !important;
+    border-width: 2px !important;
+    transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s ease, border-color 0.3s ease !important;
+}
+
+/* Card 1: Java Programming Card */
+#guides-grid .card:nth-child(1) {
+    border-color: rgba(239, 68, 68, 0.2) !important;
+    background: linear-gradient(180deg, var(--card-bg), rgba(239, 68, 68, 0.02)) !important;
+    box-shadow: inset 0 4px 0 #ef4444 !important;
+}
+#guides-grid .card:nth-child(1):hover {
+    border-color: #ef4444 !important;
+    box-shadow: 0 12px 20px rgba(239, 68, 68, 0.12), inset 0 4px 0 #ef4444 !important;
+}
+
+/* Card 2: Python Card */
+#guides-grid .card:nth-child(2) {
+    border-color: rgba(59, 130, 246, 0.2) !important;
+    background: linear-gradient(180deg, var(--card-bg), rgba(59, 130, 246, 0.02)) !important;
+    box-shadow: inset 0 4px 0 #3b82f6 !important;
+}
+#guides-grid .card:nth-child(2):hover {
+    border-color: #3b82f6 !important;
+    box-shadow: 0 12px 20px rgba(59, 130, 246, 0.12), inset 0 4px 0 #3b82f6 !important;
+}
+
+/* Card 3: Data Structures Card */
+#guides-grid .card:nth-child(3) {
+    border-color: rgba(16, 185, 129, 0.2) !important;
+    background: linear-gradient(180deg, var(--card-bg), rgba(16, 185, 129, 0.02)) !important;
+    box-shadow: inset 0 4px 0 #10b981 !important;
+}
+#guides-grid .card:nth-child(3):hover {
+    border-color: #10b981 !important;
+    box-shadow: 0 12px 20px rgba(16, 185, 129, 0.12), inset 0 4px 0 #10b981 !important;
+}
+
+/* Card 4: Automation Tools Card */
+#guides-grid .card:nth-child(4) {
+    border-color: rgba(245, 158, 11, 0.2) !important;
+    background: linear-gradient(180deg, var(--card-bg), rgba(245, 158, 11, 0.02)) !important;
+    box-shadow: inset 0 4px 0 #f59e0b !important;
+}
+#guides-grid .card:nth-child(4):hover {
+    border-color: #f59e0b !important;
+    box-shadow: 0 12px 20px rgba(245, 158, 11, 0.12), inset 0 4px 0 #f59e0b !important;
+}
+
+/* Card 5: Locators & DOM Techniques Card */
+#guides-grid .card:nth-child(5) {
+    border-color: rgba(139, 92, 246, 0.2) !important;
+    background: linear-gradient(180deg, var(--card-bg), rgba(139, 92, 246, 0.02)) !important;
+    box-shadow: inset 0 4px 0 #8b5cf6 !important;
+}
+#guides-grid .card:nth-child(5):hover {
+    border-color: #8b5cf6 !important;
+    box-shadow: 0 12px 20px rgba(139, 92, 246, 0.12), inset 0 4px 0 #8b5cf6 !important;
+}
+
+/* Card 6: Git & CI/CD Pipelines Card */
+#guides-grid .card:nth-child(6) {
+    border-color: rgba(236, 72, 153, 0.2) !important;
+    background: linear-gradient(180deg, var(--card-bg), rgba(236, 72, 153, 0.02)) !important;
+    box-shadow: inset 0 4px 0 #ec4899 !important;
+}
+#guides-grid .card:nth-child(6):hover {
+    border-color: #ec4899 !important;
+    box-shadow: 0 12px 20px rgba(236, 72, 153, 0.12), inset 0 4px 0 #ec4899 !important;
+}
+
+/* Card 7: AI Mastery Automation Card */
+#guides-grid .card:nth-child(7) {
+    border-color: rgba(6, 182, 212, 0.2) !important;
+    background: linear-gradient(180deg, var(--card-bg), rgba(6, 182, 212, 0.02)) !important;
+    box-shadow: inset 0 4px 0 #06b6d4 !important;
+}
+#guides-grid .card:nth-child(7):hover {
+    border-color: #06b6d4 !important;
+    box-shadow: 0 12px 20px rgba(6, 182, 212, 0.12), inset 0 4px 0 #06b6d4 !important;
+}
+
+
+/* 3. Fully Functional Display Controls & Fixes for the About Me Modal Window */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(15, 23, 42, 0.75);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.modal-overlay.active {
+    display: flex !important;
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modal-card {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(243, 244, 246, 0.98));
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.3),
+                0 0 40px rgba(37, 99, 235, 0.15);
+    color: #1e293b;
+    border-radius: 24px;
+    width: 92%;
+    max-width: 620px;
+    padding: 2.5rem;
+    position: relative;
+    transform: translateY(30px) scale(0.95);
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    display: flex;
+    flex-direction: column;
+}
+
+[data-theme="dark"] .modal-card {
+    background: linear-gradient(135deg, rgba(30, 41, 59, 0.98), rgba(15, 23, 42, 0.98));
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6),
+                0 0 40px rgba(96, 165, 250, 0.2);
+    color: #f8fafc;
+}
+
+.modal-overlay.active .modal-card {
+    transform: translateY(0) scale(1);
+}
+
+.modal-header {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    position: relative;
+    flex-shrink: 0;
+}
+
+[data-theme="dark"] .modal-header {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.modal-avatar {
+    font-size: 2.5rem;
+    background: linear-gradient(135deg, #ec4899, #8b5cf6, #3b82f6);
+    padding: 0.6rem;
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 20px rgba(139, 92, 246, 0.3);
+    animation: avatarGlow 3s infinite alternate;
+}
+
+@keyframes avatarGlow {
+    0% { box-shadow: 0 8px 16px rgba(139, 92, 246, 0.3); }
+    100% { box-shadow: 0 8px 24px rgba(236, 72, 153, 0.5); }
+}
+
+.modal-header h2 {
+    margin: 0;
+    font-size: 1.75rem;
+    font-weight: 800;
+    background: linear-gradient(45deg, #3b82f6, #8b5cf6, #ec4899);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.modal-header p {
+    margin: 0.25rem 0 0 0;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #8b5cf6;
+    letter-spacing: 0.5px;
+}
+
+[data-theme="dark"] .modal-header p {
+    color: #a78bfa;
+}
+
+.modal-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(0, 0, 0, 0.05);
+    border: none;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    cursor: pointer;
+    color: var(--text-muted);
+    transition: all 0.2s ease;
+}
+
+[data-theme="dark"] .modal-close {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.modal-close:hover {
+    background: #ef4444;
+    color: #ffffff;
+    transform: rotate(90deg);
+}
+
+/* Scrollable Container Window rules inside the profile card popup */
+.modal-body.modal-content, .modal-body {
+    overflow-y: auto;
+    max-height: 50vh;
+    padding-right: 0.5rem;
+    margin: 1rem 0;
+}
+
+.modal-body::-webkit-scrollbar {
+    width: 6px;
+}
+.modal-body::-webkit-scrollbar-track {
+    background: transparent;
+}
+.modal-body::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 10px;
+}
+
+.modal-body ul {
+    list-style: none;
+    padding: 0;
+    margin: 1.5rem 0;
+}
+
+.modal-body li {
+    position: relative;
+    padding-left: 2rem;
+    margin-bottom: 1.25rem;
+    font-size: 1.05rem;
+    line-height: 1.6;
+}
+
+.modal-body li::before {
+    content: "⚡";
+    position: absolute;
+    left: 0;
+    top: 2px;
+    font-size: 1.1rem;
+}
+
+.modal-body strong {
+    color: #3b82f6;
+}
+[data-theme="dark"] .modal-body strong {
+    color: #60a5fa;
+}
+
+/* Milestone distinct high-visibility color overrides */
+.modal-body li:nth-child(1) strong { color: #ec4899 !important; }
+.modal-body li:nth-child(2) strong { color: #f59e0b !important; }
+.modal-body li:nth-child(3) strong { color: #10b981 !important; }
+.modal-body li:nth-child(4) strong { color: #6366f1 !important; }
+.modal-body li:nth-child(5) strong { color: #3b82f6 !important; }
+
+.modal-footer {
+    margin-top: auto;
+    padding-top: 1.25rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    text-align: right;
+    flex-shrink: 0;
+}
+
+[data-theme="dark"] .modal-footer {
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.btn-close-modal {
+    background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.75rem;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 1rem;
+    box-shadow: 0 4px 14px rgba(139, 92, 246, 0.4);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-close-modal:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(139, 92, 246, 0.6);
+    filter: brightness(1.1);
 }
