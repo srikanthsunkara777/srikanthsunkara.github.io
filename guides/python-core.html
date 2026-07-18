@@ -44,6 +44,25 @@
             background: var(--accent-hover);
         }
 
+        /* Reading Time Badge */
+        .meta-metrics {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+        }
+        .read-time-badge {
+            background: rgba(37, 99, 235, 0.1);
+            color: var(--accent);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-weight: 700;
+        }
+        [data-theme="dark"] .read-time-badge {
+            background: rgba(96, 165, 250, 0.15);
+            color: var(--accent-hover);
+        }
+
         /* Google Search Widget Styling */
         .search-box-widget {
             display: flex;
@@ -78,43 +97,103 @@
             overflow-x: auto;
             font-family: monospace;
         }
-        code {
+
+        /* Inline text styling for keywords, variables, types */
+        .type-kw { color: #2563eb; font-weight: bold; }
+        [data-theme="dark"] .type-kw { color: #60a5fa; }
+
+        pre code {
+            color: var(--text-main);
+        }
+        p code {
+            font-family: monospace;
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            padding: 0.15rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.9em;
             color: #ef4444;
         }
-        [data-theme="dark"] code {
+        [data-theme="dark"] p code {
             color: #fca5a5;
         }
 
-        /* Dropdown Wrapper Styling */
+        /* ==========================================================================
+           🔄 ADVANCED DETAILS WRAPPER INTERACTIVE STATES
+           ========================================================================== */
         details.topic-wrapper {
             background: var(--bg-color);
-            border: 1px solid var(--border-color);
+            border: 2px solid var(--border-color);
             border-radius: 8px;
-            margin-bottom: 1rem;
-            padding: 0.5rem 1rem;
-            transition: background 0.2s ease;
+            margin-bottom: 1.25rem;
+            padding: 0.75rem 1.25rem;
+            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
         }
+
         details.topic-wrapper[open] {
             background: var(--card-bg);
-            padding-bottom: 1rem;
+            border-color: var(--accent);
+            box-shadow: 0 4px 20px rgba(37, 99, 235, 0.05);
+            padding-bottom: 1.5rem;
         }
+
         summary.topic-header {
-            font-size: 1.3rem;
-            font-weight: bold;
-            padding: 0.5rem 0;
+            font-size: 1.25rem;
+            font-weight: 700;
+            padding: 0.25rem 0;
             cursor: pointer;
             outline: none;
             user-select: none;
             color: var(--text-main);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
+
+        /* Dynamic state badges inside the wrapper header */
+        .status-pill {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            padding: 0.2rem 0.6rem;
+            border-radius: 6px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            background: var(--border-color);
+            color: var(--text-muted);
+            transition: all 0.25s ease;
+        }
+
+        details.topic-wrapper[open] .status-pill {
+            background: rgba(37, 99, 235, 0.1);
+            color: var(--accent);
+        }
+
+        /* ✅ COMPLETED STATE OVERRIDES (Triggered via JS) */
+        details.topic-wrapper.completed {
+            border-color: #10b981 !important;
+            background: rgba(16, 185, 129, 0.02) !important;
+        }
+        details.topic-wrapper.completed[open] {
+            background: var(--card-bg) !important;
+        }
+        details.topic-wrapper.completed .status-pill {
+            background: #10b981 !important;
+            color: #ffffff !important;
+        }
+        [data-theme="dark"] details.topic-wrapper.completed .status-pill {
+            color: #090d16 !important;
+        }
+
         .topic-body {
-            margin-top: 1rem;
-            padding-left: 0.5rem;
+            margin-top: 1.25rem;
+            padding-left: 0.25rem;
+            border-top: 1px dashed var(--border-color);
+            padding-top: 1rem;
         }
 
         /* Hide dynamic utilities gracefully during print output executions */
         @media print {
-            header, .action-bar, footer, #theme-toggle, summary::-webkit-details-marker {
+            header, .action-bar, footer, #theme-toggle, .status-pill {
                 display: none !important;
             }
             .guide-content {
@@ -125,9 +204,14 @@
                 background: none !important;
                 border: none !important;
                 padding: 0 !important;
+                margin-bottom: 2.5rem;
             }
             details.topic-wrapper:not([open]) {
                 display: block !important;
+            }
+            .topic-body {
+                display: block !important;
+                border: none !important;
             }
         }
     </style>
@@ -157,40 +241,108 @@
             </div>
 
             <h1>Python Architecture & OOP</h1>
-            <p style="color: var(--text-muted);">Master Python core rules, powerful built-in methods, structural interfaces, and complete Object-Oriented implementations.</p>
+            <div class="meta-metrics">
+                <span class="read-time-badge" id="calculated-read-time">⏳ Calculating...</span>
+                <span style="color: var(--text-muted); font-size: 0.9rem; display: flex; align-items: center;">💡 Tip: Closing a section marks it as read</span>
+            </div>
+
+            <p style="color: var(--text-muted);">Master Python core execution workflows, high-performance data types, structured memory rules, and deep Object-Oriented patterns optimized for production testing tools.</p>
 
             <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 2rem 0;">
 
-            <!-- Topic 1 Wrapper -->
-            <details class="topic-wrapper" open>
-                <summary class="topic-header">1. Core Methods & String Manipulation</summary>
+            <!-- Module 1: Variables & Core Dynamic Typing Rules -->
+            <details class="topic-wrapper" data-topic-id="1">
+                <summary class="topic-header">
+                    <span>1. Variables & Deep Dynamic Typing Architecture</span>
+                    <span class="status-pill" id="pill-1">Unread</span>
+                </summary>
                 <div class="topic-body">
-                    <p>Python provides an incredibly rich set of built-in string methods that accelerate log parsing, data sanitization, and automated file analysis workflows.</p>
+                    <p>In Python, variables are not named buckets containing raw bits. Instead, they are <strong>symbolic references (pointers)</strong> pointed at runtime objects instantiated inside the heap memory layout space.</p>
 
-                    <h3>Example Blueprint: Text Parsing</h3>
-                    <pre><code># Stripping whitespace and checking structures
-log_entry = "  [ERROR] System timed out connection...   "
-clean_entry = log_entry.strip()
+                    <h3>Reference Counting & Identity Mechanics</h3>
+                    <p>When you bind an assignment statement, Python allocates space for the specific object wrapper (which includes the type descriptor tag and an internal system reference count tracker) and links your explicit pointer key string to it.</p>
 
-if clean_entry.startswith("[ERROR]"):
-    print(f"Alert Triggered: {clean_entry}")</code></pre>
+                    <pre><code># Dynamic reassignment changes variable target pointer reference completely
+x = 42          # x references an integer object containing value 42
+print(id(x))    # Prints system memory reference identity location map
+
+x = "Srikanth"  # Same name, now points to an independent string object container
+print(id(x))    # Address updates dynamically; previous integer object count decrements</code></pre>
+
+                    <blockquote>
+                        <strong>⚠️ Mutable vs Immutable Types:</strong> Numerical types, strings, and tuples are completely immutable. Modifying their explicit context forces Python to spin up a completely new object identity mapping, leaving the original object block unchanged.
+                    </blockquote>
                 </div>
             </details>
 
-            <!-- Topic 2 Wrapper -->
-            <details class="topic-wrapper">
-                <summary class="topic-header">2. Object-Oriented Principles (OOP)</summary>
+            <!-- Module 2: Built-in Methods & String Engineering -->
+            <details class="topic-wrapper" data-topic-id="2">
+                <summary class="topic-header">
+                    <span>2. Built-in Methods & Text Parsing Engines</span>
+                    <span class="status-pill" id="pill-2">Unread</span>
+                </summary>
                 <div class="topic-body">
-                    <p>To design production-grade test runners and web scraping managers, deep implementation models like inheritance, encapsulation, and polymorphism are essential layout blocks.</p>
+                    <p>String manipulation tools represent the front-line machinery for processing raw continuous system server feeds, building clean locators, and normalizing testing files.</p>
 
-                    <h3>Example Blueprint: Polymorphic Drivers</h3>
-                    <pre><code>class WebDriver:
-    def start(self):
-        pass
+                    <h3>High-Performance Methods Reference Block</h3>
+                    <ul>
+                        <li><code>.strip()</code> / <code>.lstrip()</code> / <code>.rstrip()</code>: Removes structural white space buffers.</li>
+                        <li><code>.split(separator, maxsplit)</code>: Conversional parser breaking text into token arrays.</li>
+                        <li><code>.startswith(prefix)</code> / <code>.endswith(suffix)</code>: High-efficiency Boolean condition anchors.</li>
+                    </ul>
 
-class ChromeDriver(WebDriver):
-    def start(self):
-        print("Spinning up secure Chrome Engine...")</code></pre>
+                    <h3>Example Blueprint: Automated Log Analyzer</h3>
+                    <pre><code># Scenario: Parsing incoming automated dashboard logging lines
+raw_log = "   [CRITICAL] Timeout exception reached on downstream API target Node...   "
+sanitized = raw_log.strip()
+
+if sanitized.startswith("[CRITICAL]"):
+    # Isolate details cleanly
+    payload = sanitized.split("] ", 1)[1]
+    print(f"🚨 Operational Exception Captured: {payload.upper()}")</code></pre>
+                </div>
+            </details>
+
+            <!-- Module 3: Object-Oriented Blueprint Architecture -->
+            <details class="topic-wrapper" data-topic-id="3">
+                <summary class="topic-header">
+                    <span>3. Object-Oriented Architecture (OOP Mastery)</span>
+                    <span class="status-pill" id="pill-3">Unread</span>
+                </summary>
+                <div class="topic-body">
+                    <p>Building high-end framework architectures requires clean, strict patterns. Python leverages multi-tiered OOP abstractions to scale code cleanly.</p>
+
+                    <h3>The Big Three Structural Anchors</h3>
+                    <ol>
+                        <li><strong>Encapsulation:</strong> Hiding interior runtime parameters using specific double-underscore class prefixes to block unexpected adjustments.</li>
+                        <li><strong>Inheritance:</strong> Gathering modular patterns under parent driver classes to eliminate repetitive boilerplates.</li>
+                        <li><strong>Polymorphism:</strong> Overriding structural parent interfaces so that different execution nodes run distinct logic under a unified naming convention.</li>
+                    </ol>
+
+                    <h3>Advanced Blueprint: Robust Cross-Browser Test Framework Architecture</h3>
+                    <pre><code>class WebEngine:
+    """Abstract baseline structural layout mapping layer"""
+    def __init__(self, target_url):
+        self._url = target_url  # Protected layout baseline configuration attribute
+        self.__internal_session_id = "SYS-X992" # Encapsulated private string descriptor
+
+    def initialize_driver(self):
+        raise NotImplementedError("Subclasses must build specific invocation engines.")
+
+class ChromiumEngine(WebEngine):
+    """Derived specific polymorphism execution block"""
+    def initialize_driver(self):
+        print(f"✨ Launching highly secure isolated Chrome instance targeting: {self._url}")
+
+class GeckoEngine(WebEngine):
+    """Derived specific polymorphism execution block"""
+    def initialize_driver(self):
+        print(f"🦊 Invoking production Firefox sandbox execution stack targeting: {self._url}")
+
+# Dynamic Runtime Polymorphic Loop
+engines = [ChromiumEngine("https://dev.srikanth.hub"), GeckoEngine("https://qa.srikanth.hub")]
+for engine in engines:
+    engine.initialize_driver()</code></pre>
                 </div>
             </details>
 
@@ -203,6 +355,7 @@ class ChromeDriver(WebDriver):
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // --- Theme Switcher Utility ---
             const themeToggle = document.getElementById('theme-toggle');
             const currentTheme = localStorage.getItem('theme') || 'light';
 
@@ -222,6 +375,45 @@ class ChromeDriver(WebDriver):
                     localStorage.setItem('theme', 'dark');
                     themeToggle.textContent = '☀️';
                 }
+            });
+
+            // --- ⏱️ Calculated Reading Time Logic ---
+            const articleText = document.querySelector('.guide-content').innerText;
+            const wordsPerMinute = 200; // Standard average technical reading pace
+            const totalWords = articleText.split(/\s+/).length;
+            const calculatedMinutes = Math.max(1, Math.round(totalWords / wordsPerMinute));
+            document.getElementById('calculated-read-time').textContent = `⏱️ Est. Read Time: ${calculatedMinutes} Min`;
+
+            // --- 🎯 Intelligent Reading Tracking Engine ---
+            const wrappers = document.querySelectorAll('details.topic-wrapper');
+
+            // Load persistent reading progress states from localStorage
+            wrappers.forEach(wrapper => {
+                const topicId = wrapper.getAttribute('data-topic-id');
+                const isCompleted = localStorage.getItem(`python_topic_${topicId}_done`) === 'true';
+                const pill = document.getElementById(`pill-${topicId}`);
+
+                if (isCompleted) {
+                    wrapper.classList.add('completed');
+                    if (pill) pill.textContent = 'Read ✓';
+                }
+
+                // Listen for toggle interactions
+                wrapper.addEventListener('toggle', () => {
+                    const pill = document.getElementById(`pill-${topicId}`);
+
+                    if (wrapper.open) {
+                        // Mark as actively viewing or transition intermediate states
+                        if (!wrapper.classList.contains('completed')) {
+                            if (pill) pill.textContent = 'Reading...';
+                        }
+                    } else {
+                        // User opened it, explored it deeply, and closed it -> Mark as Completed!
+                        wrapper.classList.add('completed');
+                        localStorage.setItem(`python_topic_${topicId}_done`, 'true');
+                        if (pill) pill.textContent = 'Read ✓';
+                    }
+                });
             });
         });
     </script>

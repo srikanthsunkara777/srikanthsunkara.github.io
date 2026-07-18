@@ -24,7 +24,17 @@
 
         <!-- Dynamic Session & User Customization Panel -->
         <section class="dynamic-widget">
-            <div id="welcome-message">Hello, Engineer! 👋</div>
+            <div class="widget-user-profile" style="display: flex; align-items: center; gap: 1.25rem;">
+                <!-- 👥 USER/READER PROFILE PICTURE SECTOR REMOVED -->
+                <div>
+                    <div id="welcome-message">Hello, Engineer! 👋</div>
+                    <!-- 📘 PERSISTENT READER PROGRESS HISTORY TELEMETRY -->
+                    <div id="reader-history-badge" style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.25rem;">
+                        Checking your completion progress...
+                    </div>
+                </div>
+            </div>
+
             <div class="widget-controls">
                 <div class="control-item">
                     <label for="country-select">🌐 Region:</label>
@@ -149,8 +159,15 @@
     <div class="modal-overlay" id="about-modal">
         <div class="modal-card">
             <button class="modal-close" id="modal-close-x" aria-label="Close modal">✕</button>
-            <div class="modal-header">
-                <div class="modal-avatar">🎖️</div>
+            <div class="modal-header" style="display: flex; align-items: center; gap: 1.5rem;">
+                <!-- 🖼️ SRIKANTH SUNKARA (AUTHOR) PROFILE PICTURE COMPONENT LAYER -->
+                <div class="profile-pic-container" style="position: relative; flex-shrink: 0;">
+                    <div class="avatar-preview-wrapper" style="width: 80px; height: 80px; border-radius: 50%; border: 3px solid var(--accent); background: var(--bg-color); padding: 2px;">
+                        <img id="profile-avatar" src="srikanth.jpeg" alt="Srikanth Sunkara Profile Pic" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%; display: block;">
+<!--                        <label for="avatar-file-input" class="upload-overlay-badge" title="Upload New Photo" style="position: absolute; bottom: 0; right: 0; background: linear-gradient(135deg, #2563eb, #8b5cf6); color: white; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">📸</label>-->
+                    </div>
+                    <input type="file" id="avatar-file-input" accept="image/*" style="display: none;">
+                </div>
                 <div>
                     <h2>Srikanth Sunkara</h2>
                     <p>Engineering Lead - Automation</p>

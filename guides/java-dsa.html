@@ -44,6 +44,25 @@
             background: var(--accent-hover);
         }
 
+        /* Reading Time Badge */
+        .meta-metrics {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+        }
+        .read-time-badge {
+            background: rgba(37, 99, 235, 0.1);
+            color: var(--accent);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-weight: 700;
+        }
+        [data-theme="dark"] .read-time-badge {
+            background: rgba(96, 165, 250, 0.15);
+            color: var(--accent-hover);
+        }
+
         /* Google Search Widget Styling */
         .search-box-widget {
             display: flex;
@@ -78,43 +97,93 @@
             overflow-x: auto;
             font-family: monospace;
         }
-        code {
+        pre code {
+            color: var(--text-main);
+        }
+        p code {
+            font-family: monospace;
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            padding: 0.15rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.9em;
             color: #ef4444;
         }
-        [data-theme="dark"] code {
+        [data-theme="dark"] p code {
             color: #fca5a5;
         }
 
-        /* Dropdown Wrapper Styling */
+        /* ==========================================================================
+           🔄 INTERACTIVE WRAPPER & COMPLETION STATES
+           ========================================================================== */
         details.topic-wrapper {
             background: var(--bg-color);
-            border: 1px solid var(--border-color);
+            border: 2px solid var(--border-color);
             border-radius: 8px;
-            margin-bottom: 1rem;
-            padding: 0.5rem 1rem;
-            transition: background 0.2s ease;
+            margin-bottom: 1.25rem;
+            padding: 0.75rem 1.25rem;
+            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
         }
         details.topic-wrapper[open] {
             background: var(--card-bg);
-            padding-bottom: 1rem;
+            border-color: var(--accent);
+            box-shadow: 0 4px 20px rgba(37, 99, 235, 0.05);
+            padding-bottom: 1.5rem;
         }
         summary.topic-header {
-            font-size: 1.3rem;
-            font-weight: bold;
-            padding: 0.5rem 0;
+            font-size: 1.25rem;
+            font-weight: 700;
+            padding: 0.25rem 0;
             cursor: pointer;
             outline: none;
             user-select: none;
             color: var(--text-main);
-        }
-        .topic-body {
-            margin-top: 1rem;
-            padding-left: 0.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        /* Hide dynamic utilities gracefully during a print output execution */
+        .status-pill {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            padding: 0.2rem 0.6rem;
+            border-radius: 6px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            background: var(--border-color);
+            color: var(--text-muted);
+            transition: all 0.25s ease;
+        }
+        details.topic-wrapper[open] .status-pill {
+            background: rgba(37, 99, 235, 0.1);
+            color: var(--accent);
+        }
+
+        /* ✅ SUCCESS COMPLETION ENGINE STATE STYLE BACKGROUNDS */
+        details.topic-wrapper.completed {
+            border-color: #10b981 !important;
+            background: rgba(16, 185, 129, 0.02) !important;
+        }
+        details.topic-wrapper.completed[open] {
+            background: var(--card-bg) !important;
+        }
+        details.topic-wrapper.completed .status-pill {
+            background: #10b981 !important;
+            color: #ffffff !important;
+        }
+        [data-theme="dark"] details.topic-wrapper.completed .status-pill {
+            color: #090d16 !important;
+        }
+
+        .topic-body {
+            margin-top: 1.25rem;
+            padding-left: 0.25rem;
+            border-top: 1px dashed var(--border-color);
+            padding-top: 1rem;
+        }
+
         @media print {
-            header, .action-bar, footer, #theme-toggle, summary::-webkit-details-marker {
+            header, .action-bar, footer, #theme-toggle, .status-pill {
                 display: none !important;
             }
             .guide-content {
@@ -125,9 +194,14 @@
                 background: none !important;
                 border: none !important;
                 padding: 0 !important;
+                margin-bottom: 2.5rem;
             }
             details.topic-wrapper:not([open]) {
                 display: block !important;
+            }
+            .topic-body {
+                display: block !important;
+                border: none !important;
             }
         }
     </style>
@@ -138,7 +212,6 @@
         <nav class="nav-container">
             <a href="../index.html" class="logo"><span>⚡</span> Srikanth Automation PlayGround</a>
             <div class="nav-links" style="display: flex; align-items: center; gap: 1.5rem;">
-                <!-- Google Search Action Widget -->
                 <form action="https://www.google.com/search" method="get" target="_blank" class="search-box-widget">
                     <input type="text" name="q" placeholder="Search Google Docs...">
                     <button type="submit">🔍</button>
@@ -154,35 +227,116 @@
 
             <div class="action-bar">
                 <a href="../index.html" class="back-btn">← Back to Dashboard</a>
-                <!-- Print Document Target Action Element -->
                 <button onclick="window.print()" class="print-btn">🖨️ Print Guide</button>
             </div>
 
             <h1>Java Programming & DSA Blueprint</h1>
-            <p style="color: var(--text-muted);">Welcome to the comprehensive Java roadmap. Here we cover everything from core fundamentals to advanced data structures.</p>
+            <div class="meta-metrics">
+                <span class="read-time-badge" id="calculated-read-time">⏳ Calculating...</span>
+                <span style="color: var(--text-muted); font-size: 0.9rem; display: flex; align-items: center;">💡 Tip: Closing a section marks it as read</span>
+            </div>
+
+            <p style="color: var(--text-muted);">Master robust Java execution models, strict typing controls, high-performance compilation architectures, and production-grade data structure matrices.</p>
 
             <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 2rem 0;">
 
-            <!-- Topic 1 Wrapper -->
-            <details class="topic-wrapper" open>
-                <summary class="topic-header">1. Core Concepts</summary>
+            <!-- Module 1: Core Concepts & Memory Layout -->
+            <details class="topic-wrapper" data-topic-id="1">
+                <summary class="topic-header">
+                    <span>1. Core Compilation Rules & Memory Layout</span>
+                    <span class="status-pill" id="pill-1">Unread</span>
+                </summary>
                 <div class="topic-body">
-                    <p>Java is an Object-Oriented programming language. Everything revolves around classes, objects, and robust memory management models.</p>
+                    <p>Java relies on a two-step execution pattern: the compiler source turns into bytecode via <code>javac</code>, which the Java Virtual Machine (JVM) executes across isolated platforms.</p>
 
-                    <h3>Example Blueprint: Printing Data</h3>
-                    <pre><code>public class Main {
+                    <h3>Stack vs Heap Allocations</h3>
+                    <ul>
+                        <li><strong>Stack Memory:</strong> Manages short-lived execution threads, local variables, and quick context frames instantly.</li>
+                        <li><strong>Heap Memory:</strong> Stores large runtime instance layouts, structural arrays, and complex class instances globally.</li>
+                    </ul>
+
+                    <h3>Example Blueprint: High-Performance Output Analysis</h3>
+                    <pre><code>public class PerformanceMetrics {
     public static void main(String[] args) {
-        System.out.println("Hello, Srikanth's Playground!");
+        // Fast standard console telemetry streams
+        System.out.print("Initializing Engine Core... ");
+        System.out.println("Active.");
+
+        // Formatted parsing output for deep log verification blocks
+        int threadCount = 24;
+        System.out.printf("System status: Active across %d concurrent worker lines.%n", threadCount);
     }
 }</code></pre>
                 </div>
             </details>
 
-            <!-- Topic 2 Wrapper -->
-            <details class="topic-wrapper">
-                <summary class="topic-header">2. Advanced Collections Framework</summary>
+            <!-- Module 2: Advanced Java Collections Framework -->
+            <details class="topic-wrapper" data-topic-id="2">
+                <summary class="topic-header">
+                    <span>2. Advanced Collections & Dynamic Vector Paradigms</span>
+                    <span class="status-pill" id="pill-2">Unread</span>
+                </summary>
                 <div class="topic-body">
-                    <p>To write elite automation frameworks, you must master Collections. This includes using vectors, stacks, and dynamic arrays to keep track of system elements efficiently.</p>
+                    <p>Building elite web automation frameworks requires clean collection models to orchestrate active browser configurations and DOM web element nodes flawlessly.</p>
+
+                    <h3>Thread Safety: Vectors vs ArrayLists</h3>
+                    <p>Unlike standard un-synchronized list elements, Java <code>Vector</code> models enforce thread-safe synchronizations natively, protecting internal states from race conditions during parallel test executions.</p>
+
+                    <h3>Example Blueprint: Synchronized Dynamic Elements & Stack LIFO Matrices</h3>
+                    <pre><code>import java.util.Vector;
+import java.util.Stack;
+
+public class CoreCollectionsHub {
+    public static void main(String[] args) {
+        // 1. Thread-Safe Vector Array Management
+        Vector&lt;String&gt; driverNodes = new Vector&lt;&gt;();
+        driverNodes.add("EdgeNode_Alpha");
+        driverNodes.add("ChromiumNode_Beta");
+
+        // 2. LIFO (Last-In, First-Out) Execution Stack Infrastructure
+        Stack&lt;String&gt; pageHistory = new Stack&lt;&gt;();
+        pageHistory.push("https://dev.srikanth.hub/login");
+        pageHistory.push("https://dev.srikanth.hub/dashboard");
+
+        String lastVisited = pageHistory.pop(); // Returns and pulls top node container
+        System.out.println("Popped Frame: " + lastVisited);
+    }
+}</code></pre>
+                </div>
+            </details>
+
+            <!-- Module 3: DSA Matrix: Array Manipulation Architecture -->
+            <details class="topic-wrapper" data-topic-id="3">
+                <summary class="topic-header">
+                    <span>3. DSA Matrix: High-Performance Array & String Manipulation</span>
+                    <span class="status-pill" id="pill-3">Unread</span>
+                </summary>
+                <div class="topic-body">
+                    <p>Algorithms demand strict tracking of data index layers. Manipulating primitive blocks directly ensures maximum processing performance.</p>
+
+                    <h3>Advanced Blueprint: Two-Pointer Target Search Pattern</h3>
+                    <pre><code>public class ArrayDataProcessor {
+    /**
+     * Highly optimized algorithm to verify target matching constraints
+     * inside sorted sequence datasets using an O(N) linear parsing strategy.
+     */
+    public static boolean hasTargetPair(int[] orderedDataset, int targetValue) {
+        int leftIndex = 0;
+        int rightIndex = orderedDataset.length - 1;
+
+        while (leftIndex &lt; rightIndex) {
+            int currentSum = orderedDataset[leftIndex] + orderedDataset[rightIndex];
+            if (currentSum == targetValue) {
+                return true; // Match captured successfully
+            } else if (currentSum &lt; targetValue) {
+                leftIndex++; // Increase value scale bounds
+            } else {
+                rightIndex--; // Restrict upper boundary criteria
+            }
+        }
+        return false;
+    }
+}</code></pre>
                 </div>
             </details>
 
@@ -195,6 +349,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // --- Theme Switcher Utility ---
             const themeToggle = document.getElementById('theme-toggle');
             const currentTheme = localStorage.getItem('theme') || 'light';
 
@@ -214,6 +369,41 @@
                     localStorage.setItem('theme', 'dark');
                     themeToggle.textContent = '☀️';
                 }
+            });
+
+            // --- ⏱️ Calculated Reading Time Logic ---
+            const articleText = document.querySelector('.guide-content').innerText;
+            const wordsPerMinute = 200;
+            const totalWords = articleText.split(/\s+/).length;
+            const calculatedMinutes = Math.max(1, Math.round(totalWords / wordsPerMinute));
+            document.getElementById('calculated-read-time').textContent = `⏱️ Est. Read Time: ${calculatedMinutes} Min`;
+
+            // --- 🎯 Intelligent Reading Tracking Engine ---
+            const wrappers = document.querySelectorAll('details.topic-wrapper');
+
+            wrappers.forEach(wrapper => {
+                const topicId = wrapper.getAttribute('data-topic-id');
+                const isCompleted = localStorage.getItem(`java_topic_${topicId}_done`) === 'true';
+                const pill = document.getElementById(`pill-${topicId}`);
+
+                if (isCompleted) {
+                    wrapper.classList.add('completed');
+                    if (pill) pill.textContent = 'Read ✓';
+                }
+
+                wrapper.addEventListener('toggle', () => {
+                    const pill = document.getElementById(`pill-${topicId}`);
+
+                    if (wrapper.open) {
+                        if (!wrapper.classList.contains('completed')) {
+                            if (pill) pill.textContent = 'Reading...';
+                        }
+                    } else {
+                        wrapper.classList.add('completed');
+                        localStorage.setItem(`java_topic_${topicId}_done`, 'true');
+                        if (pill) pill.textContent = 'Read ✓';
+                    }
+                });
             });
         });
     </script>

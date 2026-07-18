@@ -113,6 +113,65 @@ document.addEventListener('DOMContentLoaded', () => {
     updateClock();
 
     // ==========================================
+    // 3.5 PROGRESS HISTORY & AUTHOR PROFILE IMAGE
+    // ==========================================
+    const historyBadge = document.getElementById('reader-history-badge');
+
+    // 📊 Read Progress Telemetry Scanning Engine
+    function updateReaderHistoryMetrics() {
+        if (!historyBadge) return;
+
+        let totalReadSections = 0;
+
+        // Scan for keys marked as read inside deep guide pages
+        for (let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i);
+            if (key && key.includes('_topic_') && localStorage.getItem(key) === 'completed') {
+                totalReadSections++;
+            }
+        }
+
+        if (totalReadSections > 0) {
+            historyBadge.innerHTML = `📘 You read <strong>${totalReadSections}</strong> topic${totalReadSections > 1 ? 's' : ''} previously. Welcome back!`;
+        } else {
+            historyBadge.innerHTML = `🎯 No topics completed yet. Select a guide below to get started!`;
+        }
+    }
+
+    // Initialize reader metrics badge on initial dashboard landing execution
+    updateReaderHistoryMetrics();
+
+    // 🖼️ Srikanth Sunkara (Author) Profile Image Layer
+    const authorImg = document.getElementById('profile-avatar');
+    const authorInput = document.getElementById('avatar-file-input');
+
+    // Load custom uploaded base64 data if it exists, otherwise fall back to raw image file
+    const savedAuthorAvatar = localStorage.getItem('author_profile_avatar');
+    if (savedAuthorAvatar && authorImg) {
+        authorImg.src = savedAuthorAvatar;
+    }
+
+    if (authorImg && authorInput) {
+        authorInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            if (file.size > 1500000) {
+                alert("Please upload a smaller image file (under 1.5MB) to keep modal loading fast.");
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                const base64Data = event.target.result;
+                localStorage.setItem('author_profile_avatar', base64Data);
+                authorImg.src = base64Data;
+            };
+            reader.readAsDataURL(file);
+        });
+    }
+
+    // ==========================================
     // 4. UNIFIED SEARCH & FILTER
     // ==========================================
     function filterCards() {
@@ -189,7 +248,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================
-    // 🆕 5.5 ABOUT ME INTERACTIVE MODAL ENGINE
+    // 5.5 ABOUT ME INTERACTIVE MODAL ENGINE
     // ==========================================
     const openModal = (e) => {
         if (e) e.preventDefault();
@@ -201,6 +260,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 modalCard.style.maxHeight = '85vh';
                 modalCard.style.overflowY = 'auto';
             }
+
+            updateReaderHistoryMetrics();
         }
     };
 
@@ -269,7 +330,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================
-    // 🆕 7.5 INLINE SELECTION SEARCH MAGNIFIER ENGINE
+    // 8. INLINE SELECTION SEARCH MAGNIFIER ENGINE
     // ==========================================
     let magnifierBubble = null;
     const mainWorkspace = document.querySelector('.container');
@@ -337,7 +398,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================
-    // 8. METRIC BADGE COUNTER TELEMETRY
+    // 9. METRIC BADGE COUNTER TELEMETRY
     // ==========================================
     function updateCounterBadge() {
         let activeCount = 0;
@@ -363,7 +424,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================
-    // 9. DYNAMIC HOVER HOOK FOR FLOATING LOVE SYMBOLS
+    // 10. DYNAMIC HOVER HOOK FOR FLOATING LOVE SYMBOLS
     // ==========================================
     let lastHeartSpawn = 0;
     const spawnThrottleMs = 150;
