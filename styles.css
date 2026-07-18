@@ -171,14 +171,14 @@ footer {
     text-align: center;
     padding: 3rem 1rem;
     color: var(--text-muted);
-    font-size: 0.9.rem;
+    font-size: 0.9rem;
     border-top: 1px solid var(--border-color);
     margin-top: 4rem;
 }
 
 /* ==========================================================================
    Extra Features Layout Configurations
-   ========================================================================== */
+   ========================================================================= */
 
 .dynamic-widget {
     background-color: var(--widget-bg) !important;
@@ -468,19 +468,16 @@ p code {
     100% { transform: translate(-50%, -50%) scale(0.8) translateY(-80px) rotate(15deg); opacity: 0; }
 }
 
-
 /* ==========================================================================
-   🌈 BRAND NEW ADDITIONS: HIGH-VISIBILITY COLOR OVERRIDES
+   🌈 NAVIGATION AND GRID LINK STYLING WITH GRADIENTS
    ========================================================================== */
 
-/* 1. Bright & Colorful Navigation Link Badges (About Me, Guides, Cheat Sheets) */
 .nav-links {
     display: flex;
     align-items: center;
     gap: 0.5rem;
 }
 
-/* Target About Me specially */
 .nav-links a[id="about-me-trigger"] {
     background: linear-gradient(135deg, #ec4899, #f43f5e) !important;
     color: #ffffff !important;
@@ -496,7 +493,6 @@ p code {
     filter: brightness(1.05);
 }
 
-/* Target Guides */
 .nav-links a[href="#guides"] {
     background: linear-gradient(135deg, #8b5cf6, #6366f1) !important;
     color: #ffffff !important;
@@ -512,7 +508,6 @@ p code {
     filter: brightness(1.05);
 }
 
-/* Target Cheat Sheets */
 .nav-links a[id="cheat-sheets"], .nav-links a[href="#cheat-sheets"] {
     background: linear-gradient(135deg, #06b6d4, #0ea5e9) !important;
     color: #ffffff !important;
@@ -528,93 +523,95 @@ p code {
     filter: brightness(1.05);
 }
 
-
-/* 2. Distinct Unique Multi-Color Gradient Overlays For All 7 Grid Cards */
 #guides-grid .card {
     background-color: var(--card-bg) !important;
     border-width: 2px !important;
     transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s ease, border-color 0.3s ease !important;
 }
 
-/* Card 1: Java Programming Card */
-#guides-grid .card:nth-child(1) {
-    border-color: rgba(239, 68, 68, 0.2) !important;
-    background: linear-gradient(180deg, var(--card-bg), rgba(239, 68, 68, 0.02)) !important;
-    box-shadow: inset 0 4px 0 #ef4444 !important;
-}
-#guides-grid .card:nth-child(1):hover {
-    border-color: #ef4444 !important;
-    box-shadow: 0 12px 20px rgba(239, 68, 68, 0.12), inset 0 4px 0 #ef4444 !important;
+/* Card Borders and Shadows */
+#guides-grid .card:nth-child(1) { border-color: rgba(239, 68, 68, 0.2) !important; background: linear-gradient(180deg, var(--card-bg), rgba(239, 68, 68, 0.02)) !important; box-shadow: inset 0 4px 0 #ef4444 !important; }
+#guides-grid .card:nth-child(1):hover { border-color: #ef4444 !important; box-shadow: 0 12px 20px rgba(239, 68, 68, 0.12), inset 0 4px 0 #ef4444 !important; }
+
+#guides-grid .card:nth-child(2) { border-color: rgba(59, 130, 246, 0.2) !important; background: linear-gradient(180deg, var(--card-bg), rgba(59, 130, 246, 0.02)) !important; box-shadow: inset 0 4px 0 #3b82f6 !important; }
+#guides-grid .card:nth-child(2):hover { border-color: #3b82f6 !important; box-shadow: 0 12px 20px rgba(59, 130, 246, 0.12), inset 0 4px 0 #3b82f6 !important; }
+
+#guides-grid .card:nth-child(3) { border-color: rgba(16, 185, 129, 0.2) !important; background: linear-gradient(180deg, var(--card-bg), rgba(16, 185, 129, 0.02)) !important; box-shadow: inset 0 4px 0 #10b981 !important; }
+#guides-grid .card:nth-child(3):hover { border-color: #10b981 !important; box-shadow: 0 12px 20px rgba(16, 185, 129, 0.12), inset 0 4px 0 #10b981 !important; }
+
+#guides-grid .card:nth-child(4) { border-color: rgba(245, 158, 11, 0.2) !important; background: linear-gradient(180deg, var(--card-bg), rgba(245, 158, 11, 0.02)) !important; box-shadow: inset 0 4px 0 #f59e0b !important; }
+#guides-grid .card:nth-child(4):hover { border-color: #f59e0b !important; box-shadow: 0 12px 20px rgba(245, 158, 11, 0.12), inset 0 4px 0 #f59e0b !important; }
+
+#guides-grid .card:nth-child(5) { border-color: rgba(139, 92, 246, 0.2) !important; background: linear-gradient(180deg, var(--card-bg), rgba(139, 92, 246, 0.02)) !important; box-shadow: inset 0 4px 0 #8b5cf6 !important; }
+#guides-grid .card:nth-child(5):hover { border-color: #8b5cf6 !important; box-shadow: 0 12px 20px rgba(139, 92, 246, 0.12), inset 0 4px 0 #8b5cf6 !important; }
+
+#guides-grid .card:nth-child(6) { border-color: rgba(236, 72, 153, 0.2) !important; background: linear-gradient(180deg, var(--card-bg), rgba(236, 72, 153, 0.02)) !important; box-shadow: inset 0 4px 0 #ec4899 !important; }
+#guides-grid .card:nth-child(6):hover { border-color: #ec4899 !important; box-shadow: 0 12px 20px rgba(236, 72, 153, 0.12), inset 0 4px 0 #ec4899 !important; }
+
+#guides-grid .card:nth-child(7) { border-color: rgba(6, 182, 212, 0.2) !important; background: linear-gradient(180deg, var(--card-bg), rgba(6, 182, 212, 0.02)) !important; box-shadow: inset 0 4px 0 #06b6d4 !important; }
+#guides-grid .card:nth-child(7):hover { border-color: #06b6d4 !important; box-shadow: 0 12px 20px rgba(6, 182, 212, 0.12), inset 0 4px 0 #06b6d4 !important; }
+
+/* ==========================================================================
+   👥 DUAL AVATAR STYLING RULES (READER DASHBOARD & AUTHOR MODAL)
+   ========================================================================== */
+
+/* Dashboard Reader Picture */
+.widget-user-profile {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
 }
 
-/* Card 2: Python Card */
-#guides-grid .card:nth-child(2) {
-    border-color: rgba(59, 130, 246, 0.2) !important;
-    background: linear-gradient(180deg, var(--card-bg), rgba(59, 130, 246, 0.02)) !important;
-    box-shadow: inset 0 4px 0 #3b82f6 !important;
-}
-#guides-grid .card:nth-child(2):hover {
-    border-color: #3b82f6 !important;
-    box-shadow: 0 12px 20px rgba(59, 130, 246, 0.12), inset 0 4px 0 #3b82f6 !important;
+.reader-avatar-container {
+    position: relative;
+    flex-shrink: 0;
 }
 
-/* Card 3: Data Structures Card */
-#guides-grid .card:nth-child(3) {
-    border-color: rgba(16, 185, 129, 0.2) !important;
-    background: linear-gradient(180deg, var(--card-bg), rgba(16, 185, 129, 0.02)) !important;
-    box-shadow: inset 0 4px 0 #10b981 !important;
-}
-#guides-grid .card:nth-child(3):hover {
-    border-color: #10b981 !important;
-    box-shadow: 0 12px 20px rgba(16, 185, 129, 0.12), inset 0 4px 0 #10b981 !important;
+.reader-avatar-wrapper {
+    transition: border-color 0.3s ease;
 }
 
-/* Card 4: Automation Tools Card */
-#guides-grid .card:nth-child(4) {
-    border-color: rgba(245, 158, 11, 0.2) !important;
-    background: linear-gradient(180deg, var(--card-bg), rgba(245, 158, 11, 0.02)) !important;
-    box-shadow: inset 0 4px 0 #f59e0b !important;
-}
-#guides-grid .card:nth-child(4):hover {
-    border-color: #f59e0b !important;
-    box-shadow: 0 12px 20px rgba(245, 158, 11, 0.12), inset 0 4px 0 #f59e0b !important;
+.reader-avatar-wrapper:hover {
+    border-color: var(--accent) !important;
 }
 
-/* Card 5: Locators & DOM Techniques Card */
-#guides-grid .card:nth-child(5) {
-    border-color: rgba(139, 92, 246, 0.2) !important;
-    background: linear-gradient(180deg, var(--card-bg), rgba(139, 92, 246, 0.02)) !important;
-    box-shadow: inset 0 4px 0 #8b5cf6 !important;
-}
-#guides-grid .card:nth-child(5):hover {
-    border-color: #8b5cf6 !important;
-    box-shadow: 0 12px 20px rgba(139, 92, 246, 0.12), inset 0 4px 0 #8b5cf6 !important;
+.reader-upload-badge {
+    transition: transform 0.2s ease;
 }
 
-/* Card 6: Git & CI/CD Pipelines Card */
-#guides-grid .card:nth-child(6) {
-    border-color: rgba(236, 72, 153, 0.2) !important;
-    background: linear-gradient(180deg, var(--card-bg), rgba(236, 72, 153, 0.02)) !important;
-    box-shadow: inset 0 4px 0 #ec4899 !important;
-}
-#guides-grid .card:nth-child(6):hover {
-    border-color: #ec4899 !important;
-    box-shadow: 0 12px 20px rgba(236, 72, 153, 0.12), inset 0 4px 0 #ec4899 !important;
+.reader-upload-badge:hover {
+    transform: scale(1.15);
 }
 
-/* Card 7: AI Mastery Automation Card */
-#guides-grid .card:nth-child(7) {
-    border-color: rgba(6, 182, 212, 0.2) !important;
-    background: linear-gradient(180deg, var(--card-bg), rgba(6, 182, 212, 0.02)) !important;
-    box-shadow: inset 0 4px 0 #06b6d4 !important;
-}
-#guides-grid .card:nth-child(7):hover {
-    border-color: #06b6d4 !important;
-    box-shadow: 0 12px 20px rgba(6, 182, 212, 0.12), inset 0 4px 0 #06b6d4 !important;
+/* Modal Author Picture Frame Base Override */
+.profile-pic-container {
+    position: relative;
 }
 
+.avatar-preview-wrapper {
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 8px 24px rgba(37, 99, 235, 0.2);
+}
 
-/* 3. Fully Functional Display Controls & Fixes for the About Me Modal Window */
+.avatar-preview-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.upload-overlay-badge {
+    transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.upload-overlay-badge:hover {
+    transform: scale(1.1);
+}
+
+/* ==========================================================================
+   ⚙️ PROFILE CARD DIALOG POPUP ENVIRONMENT
+   ========================================================================== */
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -641,8 +638,7 @@ p code {
 .modal-card {
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(243, 244, 246, 0.98));
     border: 1px solid rgba(255, 255, 255, 0.6);
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.3),
-                0 0 40px rgba(37, 99, 235, 0.15);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.3), 0 0 40px rgba(37, 99, 235, 0.15);
     color: #1e293b;
     border-radius: 24px;
     width: 92%;
@@ -658,8 +654,7 @@ p code {
 [data-theme="dark"] .modal-card {
     background: linear-gradient(135deg, rgba(30, 41, 59, 0.98), rgba(15, 23, 42, 0.98));
     border: 1px solid rgba(255, 255, 255, 0.08);
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6),
-                0 0 40px rgba(96, 165, 250, 0.2);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6), 0 0 40px rgba(96, 165, 250, 0.2);
     color: #f8fafc;
 }
 
@@ -668,35 +663,11 @@ p code {
 }
 
 .modal-header {
-    display: flex;
-    align-items: center;
-    gap: 1.25rem;
-    margin-bottom: 1.5rem;
-    padding-bottom: 1.25rem;
     border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-    position: relative;
-    flex-shrink: 0;
 }
 
 [data-theme="dark"] .modal-header {
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.modal-avatar {
-    font-size: 2.5rem;
-    background: linear-gradient(135deg, #ec4899, #8b5cf6, #3b82f6);
-    padding: 0.6rem;
-    border-radius: 18px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 8px 20px rgba(139, 92, 246, 0.3);
-    animation: avatarGlow 3s infinite alternate;
-}
-
-@keyframes avatarGlow {
-    0% { box-shadow: 0 8px 16px rgba(139, 92, 246, 0.3); }
-    100% { box-shadow: 0 8px 24px rgba(236, 72, 153, 0.5); }
 }
 
 .modal-header h2 {
@@ -748,8 +719,7 @@ p code {
     transform: rotate(90deg);
 }
 
-/* Scrollable Container Window rules inside the profile card popup */
-.modal-body.modal-content, .modal-body {
+.modal-body {
     overflow-y: auto;
     max-height: 50vh;
     padding-right: 0.5rem;
@@ -796,7 +766,6 @@ p code {
     color: #60a5fa;
 }
 
-/* Milestone distinct high-visibility color overrides */
 .modal-body li:nth-child(1) strong { color: #ec4899 !important; }
 .modal-body li:nth-child(2) strong { color: #f59e0b !important; }
 .modal-body li:nth-child(3) strong { color: #10b981 !important; }
